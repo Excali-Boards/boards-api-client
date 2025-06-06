@@ -27,16 +27,16 @@
 		"@typescript-eslint/eslint-plugin": "6.18.0",
 		"@typescript-eslint/parser": "6.18.0",
 		"eslint": "8.56.0",
-		"typescript": "5.3.3"
+		"typescript": "5.8.3"
 	},
 	"engines": {
 		"node": ">=20.2.0"
 	},
 	"dependencies": {
 		"@prisma/client": "5.21.1",
-		"axios": "1.7.9",
+		"axios": "1.9.0",
 		"prisma": "5.21.1",
 		"ts-prisma": "1.2.14",
-		"zod": "3.24.1"
+		"zod": "3.25.56"
 	}
 }
