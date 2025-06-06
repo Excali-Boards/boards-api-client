@@ -1,0 +1,42 @@
+{
+	"version": "1.0.0",
+	"name": "@excali-boards/boards-api-client",
+	"description": "A simple API client for the Boards API.",
+	"author": "Digital39999",
+	"scripts": {
+		"ts": "pnpm install typescript --save-dev -g",
+		"init": "pnpm install && pnpm run build",
+		"build": "tsc --build",
+		"watch": "tsc --watch",
+		"lint": "eslint . --ext .ts",
+		"postinstall": "prisma generate",
+		"updates": "pnpm npm-check-updates -i --format group"
+	},
+	"repository": "https://github.com/Excali-Boards/boards-api-client",
+	"main": "dist/index.js",
+	"license": "GPL-3.0",
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@prisma/client",
+			"@prisma/engines",
+			"prisma"
+		]
+	},
+	"devDependencies": {
+		"@types/node": "20.14.13",
+		"@typescript-eslint/eslint-plugin": "6.18.0",
+		"@typescript-eslint/parser": "6.18.0",
+		"eslint": "8.56.0",
+		"typescript": "5.3.3"
+	},
+	"engines": {
+		"node": ">=20.2.0"
+	},
+	"dependencies": {
+		"@prisma/client": "5.21.1",
+		"axios": "1.7.9",
+		"prisma": "5.21.1",
+		"ts-prisma": "1.2.14",
+		"zod": "3.24.1"
+	}
+}

@@ -1,0 +1,32 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator tsPrisma {
+    provider = "ts-prisma-generator"
+}
+
+enum Platforms {
+    Microsoft
+    Discord
+    Google
+    GitHub
+}
+
+enum BoardPermissionType {
+    Read
+    Write
+}
+
+model AllEnumsModel {
+    dbId String @id @default(uuid())
+
+    platformEnum Platforms
+    permissionEnum BoardPermissionType
+}

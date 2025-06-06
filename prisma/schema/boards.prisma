@@ -1,0 +1,86 @@
+model Group {
+    dbId      String @id @default(uuid())
+    groupId String @unique
+
+    name  String
+    index Int
+
+    categories Category[]
+}
+
+model Category {
+    dbId         String @id @default(uuid())
+    categoryId String @unique
+
+    name  String
+    index Int
+
+    groupId String
+    group   Group  @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
+
+    boards Board[]
+}
+
+model Board {
+    dbId      String @id @default(uuid())
+    boardId String @unique
+
+    name  String
+    data  Bytes
+    index Int
+
+    scheduledForDeletion DateTime?
+
+    categoryId String
+    category   Category @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
+
+    ownerId String
+    owner   User   @relation(fields: [ownerId], references: [userId], onDelete: Cascade)
+
+    files           File[]
+    boardPermission BoardPermission[]
+    boardActivity   BoardActivity[]
+}
+
+model File {
+    dbId            String    @id @default(uuid())
+    fileId        String    @unique
+
+    mimeType      String
+    created       DateTime
+    lastRetrieved DateTime?
+    version       Int?
+
+    boardId String
+    board   Board  @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+}
+
+model BoardPermission {
+    dbId             String              @id @default(uuid())
+
+    boardId        String
+    userId         String
+
+    permissionType BoardPermissionType
+
+    board Board @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([userId, boardId])
+}
+
+model BoardActivity {
+    dbId      String @id @default(uuid())
+
+    userId  String
+    boardId String
+
+    lastOpened       DateTime?
+    totalTimeSeconds Int       @default(0)
+    sessionCount     Int       @default(0)
+
+    user  User  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+    board Board @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+
+    @@unique([userId, boardId])
+}
