@@ -2,6 +2,7 @@
 	"version": "1.0.1",
 	"name": "@excali-boards/boards-api-client",
 	"description": "A simple API client for the Boards API.",
+	"repository": "https://github.com/Excali-Boards/boards-api-client",
 	"author": "Digital39999",
 	"scripts": {
 		"ts": "pnpm install typescript --save-dev -g",
@@ -12,7 +13,6 @@
 		"postinstall": "prisma generate",
 		"updates": "pnpm npm-check-updates -i --format group"
 	},
-	"repository": "https://github.com/Excali-Boards/boards-api-client",
 	"main": "dist/index.js",
 	"license": "GPL-3.0",
 	"pnpm": {
