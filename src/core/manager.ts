@@ -1,9 +1,21 @@
 import { PaginatedWebResponse, RequestMethod, WebResponse } from '../types';
 import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
+import { APICategories } from '../classes/categories';
+import { APIGroups } from '../classes/groups';
+import { APIBoards } from '../classes/boards';
 import { APIUtils } from '../classes/utils';
+import { APIStats } from '../classes/stats';
+import { APIFiles } from '../classes/files';
+import { APIAdmin } from '../classes/admin';
 import { transformDates } from './utils';
 
 export class WebDataManager {
+	readonly categories = new APICategories(this);
+	readonly groups = new APIGroups(this);
+	readonly boards = new APIBoards(this);
+	readonly files = new APIFiles(this);
+	readonly stats = new APIStats(this);
+	readonly admin = new APIAdmin(this);
 	readonly utils = new APIUtils(this);
 
 	constructor (public url: string) { }
