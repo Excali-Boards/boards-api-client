@@ -49,7 +49,6 @@ export type GetBoardsOutput = {
 		group: SingleOutput;
 		category: SingleOutput;
 		board: SingleOutput & {
-			elements: Buffer;
 			accessLevel: BoardPermissionType;
 			files: {
 				fileId: string;

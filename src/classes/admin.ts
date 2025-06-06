@@ -6,32 +6,24 @@ export class APIAdmin {
 	constructor (private web: WebDataManager) { }
 
 	// Methods.
-	public async getRooms({ auth }: AdminFunctionsInput['getRooms']) {
+	public async getActiveRooms({ auth }: AdminFunctionsInput['getActiveRooms']) {
 		return await this.web.request<GetRoomsOutput[]>({
 			method: 'GET', auth,
 			endpoint: this.web.qp('/admin/rooms'),
 		});
 	}
 
-	public async getUsers({ auth }: AdminFunctionsInput['getUsers']) {
-		return await this.web.request<GetUsersOutput[]>({
-			method: 'GET', auth,
-			endpoint: this.web.qp('/admin/users'),
-		});
-	}
-
 	public async updateUserPermissions({ auth, body }: AdminFunctionsInput['updateUserPermissions']) {
 		return await this.web.request<string>({
 			method: 'POST', auth, body,
-			endpoint: this.web.qp('/admin/users/permissions'),
+			endpoint: this.web.qp('/admin/permissions'),
 		});
 	}
 }
 
 // Types.
 export type AdminFunctionsInput = {
-	'getRooms': { auth: string; };
-	'getUsers': { auth: string; };
+	'getActiveRooms': { auth: string; };
 	'updateUserPermissions': { auth: string; body: UpdateUserPermissionsInput; };
 }
 
@@ -42,24 +34,6 @@ export type GetRoomsOutput = {
 		id: string;
 		username: string;
 		avatarUrl: string | null;
-	}[];
-}
-
-export type GetUsersOutput = {
-	id: string;
-	email: string;
-	displayName: string | null;
-
-	isDev: boolean;
-	isBoardsAdmin: boolean;
-
-	ownedBoards: {
-		boardId: string;
-		boardName: string;
-	}[];
-	boardPermissions: {
-		boardId: string;
-		boardName: BoardPermissionType;
 	}[];
 }
 

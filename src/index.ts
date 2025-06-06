@@ -8,3 +8,5 @@ export * from './classes/admin';
 export * from './classes/files';
 export * from './classes/stats';
 export * from './classes/utils';
+export * from './classes/users';
+export * from './classes/auth';

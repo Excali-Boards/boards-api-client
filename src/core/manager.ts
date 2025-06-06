@@ -4,9 +4,11 @@ import { APICategories } from '../classes/categories';
 import { APIGroups } from '../classes/groups';
 import { APIBoards } from '../classes/boards';
 import { APIUtils } from '../classes/utils';
+import { APIUsers } from '../classes/users';
 import { APIStats } from '../classes/stats';
 import { APIFiles } from '../classes/files';
 import { APIAdmin } from '../classes/admin';
+import { APIAuth } from '../classes/auth';
 import { transformDates } from './utils';
 
 export class WebDataManager {
@@ -17,6 +19,8 @@ export class WebDataManager {
 	readonly stats = new APIStats(this);
 	readonly admin = new APIAdmin(this);
 	readonly utils = new APIUtils(this);
+	readonly users = new APIUsers(this);
+	readonly auth = new APIAuth(this);
 
 	constructor (public url: string) { }
 

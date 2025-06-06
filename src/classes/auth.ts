@@ -1,0 +1,29 @@
+import { Platforms } from '../../prisma/generated/default';
+import { WebDataManager } from '../core/manager';
+
+// Data.
+export class APIAuth {
+	constructor (private web: WebDataManager) { }
+
+	// Methods.
+	public async authenticate({ auth, body }: AuthFunctionsInput['authenticate']) {
+		return await this.web.request<string>({
+			method: 'POST', auth, body,
+			endpoint: this.web.qp('/auth'),
+		});
+	}
+}
+
+// Types.
+export type AuthFunctionsInput = {
+	'authenticate': { auth: string; body: AuthenticateInput; };
+}
+
+// External.
+export type AuthenticateInput = {
+	platform: Platforms
+	email: string;
+	displayName: string;
+	avatarUrl?: string | null;
+	currentUserId?: string;
+};
