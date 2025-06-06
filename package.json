@@ -1,5 +1,5 @@
 {
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"name": "@excali-boards/boards-api-client",
 	"description": "A simple API client for the Boards API.",
 	"author": "Digital39999",
