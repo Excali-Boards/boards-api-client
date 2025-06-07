@@ -43,6 +43,6 @@ export type GetUsersOutput = {
 	}[];
 	boardPermissions: {
 		boardId: string;
-		boardName: BoardPermissionType;
+		permissionType: BoardPermissionType;
 	}[];
 }
