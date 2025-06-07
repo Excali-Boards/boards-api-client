@@ -29,6 +29,14 @@ export class APIUsers {
 			body: { name: newMainPlatform },
 		});
 	}
+
+	public async changeMainGroup({ auth, newMainGroupId }: UsersFunctionsInput['changeMainGroup']) {
+		return await this.web.request<string>({
+			method: 'POST', auth,
+			endpoint: this.web.qp('/users/change-main-group'),
+			body: { groupId: newMainGroupId },
+		});
+	}
 }
 
 // Types.
@@ -36,6 +44,7 @@ export type UsersFunctionsInput<T extends boolean = never> = {
 	'getUsers': { auth: string; };
 	'getCurrentUser': { auth: string; full?: T; };
 	'changeMainPlatform': { auth: string; newMainPlatform: Platforms; };
+	'changeMainGroup': { auth: string; newMainGroupId: string; };
 }
 
 export type GetUsersOutput<T extends boolean = never> = {

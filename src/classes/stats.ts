@@ -7,14 +7,14 @@ export class APIStats {
 	// Methods.
 	public async globalStats({ auth }: StatsFunctionsInput['globalStats']) {
 		return await this.web.request<GlobalStatsOutput>({
-			method: 'POST', auth,
+			method: 'GET', auth,
 			endpoint: this.web.qp('/stats'),
 		});
 	}
 
 	public async userStats({ auth, userId }: StatsFunctionsInput['userStats']) {
 		return await this.web.request<UserStatsOutput>({
-			method: 'POST', auth,
+			method: 'GET', auth,
 			endpoint: this.web.qp('/stats/user', {
 				userId,
 			}),
