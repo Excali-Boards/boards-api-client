@@ -33,6 +33,7 @@ export type GetUsersOutput = {
 	avatarUrl: string | null;
 	displayName: string;
 	mainLoginType: Platforms;
+	mainGroupId: string | null;
 
 	isDev: boolean;
 	isBoardsAdmin: boolean;

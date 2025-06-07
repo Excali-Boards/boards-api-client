@@ -7,7 +7,7 @@ export class APIAdmin {
 
 	// Methods.
 	public async getActiveRooms({ auth }: AdminFunctionsInput['getActiveRooms']) {
-		return await this.web.request<GetRoomsOutput[]>({
+		return await this.web.request<GetRoomsOutput<number>[]>({
 			method: 'GET', auth,
 			endpoint: this.web.qp('/admin/rooms'),
 		});
@@ -27,9 +27,9 @@ export type AdminFunctionsInput = {
 	'updateUserPermissions': { auth: string; body: UpdateUserPermissionsInput; };
 }
 
-export type GetRoomsOutput = {
+export type GetRoomsOutput<T> = {
 	boardId: string;
-	elements: number;
+	elements: T;
 	collaborators: {
 		id: string;
 		username: string;
