@@ -15,7 +15,9 @@ export class APIStats {
 	public async userStats({ auth, userId }: StatsFunctionsInput['userStats']) {
 		return await this.web.request<UserStatsOutput>({
 			method: 'POST', auth,
-			endpoint: this.web.qp(`/stats/${userId}`),
+			endpoint: this.web.qp('/stats/user', {
+				userId,
+			}),
 		});
 	}
 }
@@ -23,7 +25,7 @@ export class APIStats {
 // Types.
 export type StatsFunctionsInput = {
 	'globalStats': { auth: string; };
-	'userStats': { auth: string; userId: string; };
+	'userStats': { auth: string; userId?: string; };
 }
 
 // External.
