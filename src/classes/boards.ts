@@ -5,10 +5,13 @@ import { WebDataManager } from '../core/manager';
 export class APIBoards {
 	constructor (private web: WebDataManager) { }
 
-	async getBoards({ auth }: DataBoardsFunctionsInput['getBoards']) {
+	async getBoards({ auth, categoryId, groupId }: DataBoardsFunctionsInput['getBoards']) {
 		return await this.web.request<GetBoardsOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/data/boards'),
+			endpoint: this.web.qp('/data/boards', {
+				categoryId,
+				groupId,
+			}),
 		});
 	}
 
@@ -36,7 +39,7 @@ export class APIBoards {
 
 // Input types
 export type DataBoardsFunctionsInput = {
-	'getBoards': { auth: string; };
+	'getBoards': { auth: string; categoryId?: string; groupId?: string; };
 	'getBoard': { auth: string; boardId: string; };
 	'updateBoard': { auth: string; boardId: string; body: NameInput; };
 	'deleteBoard': { auth: string; boardId: string; };

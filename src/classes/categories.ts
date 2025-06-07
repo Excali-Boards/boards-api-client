@@ -6,10 +6,12 @@ export class APICategories {
 	constructor (private web: WebDataManager) { }
 
 	// Methods.
-	public async getCategories({ auth }: CategoriesFunctionsInput['getCategories']) {
+	public async getCategories({ auth, groupId }: CategoriesFunctionsInput['getCategories']) {
 		return await this.web.request<GetCategoriesOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/data/categories'),
+			endpoint: this.web.qp('/data/categories', {
+				groupId,
+			}),
 		});
 	}
 
@@ -51,7 +53,7 @@ export class APICategories {
 
 // Types.
 export type CategoriesFunctionsInput = {
-	'getCategories': { auth: string; };
+	'getCategories': { auth: string; groupId?: string; };
 	'getCategory': { auth: string; categoryId: string; };
 	'createBoardInCategory': { auth: string; categoryId: string; body: NameInput; };
 	'updateCategory': { auth: string; categoryId: string; body: NameInput; };
