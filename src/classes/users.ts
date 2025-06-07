@@ -44,7 +44,7 @@ export type UsersFunctionsInput<T extends boolean = never> = {
 	'getUsers': { auth: string; };
 	'getCurrentUser': { auth: string; full?: T; };
 	'changeMainPlatform': { auth: string; newMainPlatform: Platforms; };
-	'changeMainGroup': { auth: string; newMainGroupId: string; };
+	'changeMainGroup': { auth: string; newMainGroupId: string | null; };
 }
 
 export type GetUsersOutput<T extends boolean = never> = {
