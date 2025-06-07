@@ -7,7 +7,7 @@ export class APIAuth {
 
 	// Methods.
 	public async authenticate({ auth, body }: AuthFunctionsInput['authenticate']) {
-		return await this.web.request<string>({
+		return await this.web.request<AuthenticateOutput>({
 			method: 'POST', auth, body,
 			endpoint: this.web.qp('/auth'),
 		});
@@ -26,4 +26,11 @@ export type AuthenticateInput = {
 	displayName: string;
 	avatarUrl?: string | null;
 	currentUserId?: string;
+};
+
+export type AuthenticateOutput = {
+	email: string;
+	displayName: string | null;
+	avatarUrl: string | null;
+	platform: Platforms;
 };
