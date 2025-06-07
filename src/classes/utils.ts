@@ -37,5 +37,6 @@ export type ResolveBoardInput = {
 
 export type ResolveBoardOutput = {
 	boardId: string;
-	boardName: string;
+	groupId: string;
+	categoryId: string;
 };
