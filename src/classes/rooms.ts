@@ -7,7 +7,7 @@ export class APIRooms {
 
 	// Methods.
 	public async getRoomData<T>({ auth, boardId }: RoomsFunctionsInput['getRoomData']) {
-		return await this.web.request<GetRoomsOutput<T>[]>({
+		return await this.web.request<GetRoomsOutput<T>>({
 			method: 'GET', auth,
 			endpoint: this.web.qp(`/rooms/${boardId}`),
 		});
