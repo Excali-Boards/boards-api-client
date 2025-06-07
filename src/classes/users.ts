@@ -13,21 +13,23 @@ export class APIUsers {
 		});
 	}
 
-	public async getCurrentUser({ auth }: UsersFunctionsInput['getCurrentUser']) {
-		return await this.web.request<GetUsersOutput>({
+	public async getCurrentUser<T extends boolean = never>({ auth, full }: UsersFunctionsInput<T>['getCurrentUser']) {
+		return await this.web.request<GetUsersOutput<T>>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/users/current'),
+			endpoint: this.web.qp('/users/current', {
+				full,
+			}),
 		});
 	}
 }
 
 // Types.
-export type UsersFunctionsInput = {
+export type UsersFunctionsInput<T extends boolean = never> = {
 	'getUsers': { auth: string; };
-	'getCurrentUser': { auth: string; };
+	'getCurrentUser': { auth: string; full?: T; };
 }
 
-export type GetUsersOutput = {
+export type GetUsersOutput<T extends boolean = never> = {
 	id: string;
 	email: string;
 	avatarUrl: string | null;
@@ -37,6 +39,11 @@ export type GetUsersOutput = {
 
 	isDev: boolean;
 	isBoardsAdmin: boolean;
+
+	loginMethods: T extends true ? {
+		email: string;
+		platform: Platforms;
+	}[] : never;
 
 	ownedBoards: {
 		boardId: string;
