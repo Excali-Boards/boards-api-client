@@ -32,6 +32,7 @@ export type GetRoomsOutput<T> = {
 	elements: T;
 	collaborators: {
 		id: string;
+		socketId: string;
 		username: string;
 		avatarUrl: string | null;
 	}[];
