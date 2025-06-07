@@ -21,12 +21,21 @@ export class APIUsers {
 			}),
 		});
 	}
+
+	public async changeMainPlatform({ auth, newMainPlatform }: UsersFunctionsInput['changeMainPlatform']) {
+		return await this.web.request<string>({
+			method: 'POST', auth,
+			endpoint: this.web.qp('/users/change-main-platform'),
+			body: { name: newMainPlatform },
+		});
+	}
 }
 
 // Types.
 export type UsersFunctionsInput<T extends boolean = never> = {
 	'getUsers': { auth: string; };
 	'getCurrentUser': { auth: string; full?: T; };
+	'changeMainPlatform': { auth: string; newMainPlatform: Platforms; };
 }
 
 export type GetUsersOutput<T extends boolean = never> = {
