@@ -1,4 +1,4 @@
-import { BoardPermissionType } from '../../prisma/generated/default';
+import { BoardPermissionType, Platforms } from '../../prisma/generated/default';
 import { WebDataManager } from '../core/manager';
 
 // Data.
@@ -32,6 +32,7 @@ export type GetUsersOutput = {
 	email: string;
 	avatarUrl: string | null;
 	displayName: string;
+	mainLoginType: Platforms;
 
 	isDev: boolean;
 	isBoardsAdmin: boolean;
