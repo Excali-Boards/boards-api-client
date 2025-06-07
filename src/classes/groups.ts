@@ -48,6 +48,13 @@ export class APIGroups {
 		});
 	}
 
+	public async reorderGroups({ auth, body }: GroupsFunctionsInput['reorderGroups']) {
+		return await this.web.request<string>({
+			method: 'PUT', auth, body,
+			endpoint: this.web.qp('/data/groups'),
+		});
+	}
+
 	public async reorderCategoriesInGroup({ auth, groupId, body }: GroupsFunctionsInput['reorderCategoriesInGroup']) {
 		return await this.web.request<string>({
 			method: 'PUT', auth, body,
@@ -71,6 +78,7 @@ export type GroupsFunctionsInput = {
 	'createGroup': { auth: string; body: NameInput; };
 	'createCategoryInGroup': { auth: string; groupId: string; body: NameInput; };
 	'updateGroup': { auth: string; groupId: string; body: NameInput; };
+	'reorderGroups': { auth: string; body: string[]; };
 	'reorderCategoriesInGroup': { auth: string; groupId: string; body: string[]; };
 	'deleteGroup': { auth: string; groupId: string; };
 }
