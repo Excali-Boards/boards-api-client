@@ -36,10 +36,10 @@ export class APIBoards {
 
 // Input types
 export type DataBoardsFunctionsInput = {
-	getBoards: { auth: string; };
-	getBoard: { auth: string; boardId: string; };
-	updateBoard: { auth: string; boardId: string; body: NameInput; };
-	deleteBoard: { auth: string; boardId: string; };
+	'getBoards': { auth: string; };
+	'getBoard': { auth: string; boardId: string; };
+	'updateBoard': { auth: string; boardId: string; body: NameInput; };
+	'deleteBoard': { auth: string; boardId: string; };
 };
 
 // Output types

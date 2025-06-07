@@ -6,6 +6,13 @@ export class APIGroups {
 	constructor (private web: WebDataManager) { }
 
 	// Methods.
+	public async getAllSorted({ auth }: GroupsFunctionsInput['getAllSorted']) {
+		return await this.web.request<GetAllSortedOutput>({
+			method: 'GET', auth,
+			endpoint: this.web.qp('/data/all'),
+		});
+	}
+
 	public async getGroups({ auth }: GroupsFunctionsInput['getGroups']) {
 		return await this.web.request<GetGroupsOutput>({
 			method: 'GET', auth,
@@ -58,13 +65,14 @@ export class APIGroups {
 
 // Types.
 export type GroupsFunctionsInput = {
-	getGroups: { auth: string; };
-	getGroup: { auth: string; groupId: string; };
-	createGroup: { auth: string; body: NameInput; };
-	createCategoryInGroup: { auth: string; groupId: string; body: NameInput; };
-	updateGroup: { auth: string; groupId: string; body: NameInput; };
-	reorderCategoriesInGroup: { auth: string; groupId: string; body: string[]; };
-	deleteGroup: { auth: string; groupId: string; };
+	'getAllSorted': { auth: string; };
+	'getGroups': { auth: string; };
+	'getGroup': { auth: string; groupId: string; };
+	'createGroup': { auth: string; body: NameInput; };
+	'createCategoryInGroup': { auth: string; groupId: string; body: NameInput; };
+	'updateGroup': { auth: string; groupId: string; body: NameInput; };
+	'reorderCategoriesInGroup': { auth: string; groupId: string; body: string[]; };
+	'deleteGroup': { auth: string; groupId: string; };
 }
 
 // Outputs.
@@ -81,5 +89,14 @@ export type GetGroupOutput = {
 	group: SingleOutput;
 	categories: (SingleOutput & {
 		boards: number;
+	})[];
+}
+
+export type GetAllSortedOutput = {
+	isAdmin: boolean;
+	list: (SingleOutput & {
+		categories: (SingleOutput & {
+			boards: SingleOutput[];
+		})[];
 	})[];
 }

@@ -51,12 +51,12 @@ export class APICategories {
 
 // Types.
 export type CategoriesFunctionsInput = {
-	getCategories: { auth: string; };
-	getCategory: { auth: string; categoryId: string; };
-	createBoardInCategory: { auth: string; categoryId: string; body: NameInput; };
-	updateCategory: { auth: string; categoryId: string; body: NameInput; };
-	reorderBoards: { auth: string; categoryId: string; body: string[]; };
-	deleteCategory: { auth: string; categoryId: string; };
+	'getCategories': { auth: string; };
+	'getCategory': { auth: string; categoryId: string; };
+	'createBoardInCategory': { auth: string; categoryId: string; body: NameInput; };
+	'updateCategory': { auth: string; categoryId: string; body: NameInput; };
+	'reorderBoards': { auth: string; categoryId: string; body: string[]; };
+	'deleteCategory': { auth: string; categoryId: string; };
 }
 
 // Outputs.
