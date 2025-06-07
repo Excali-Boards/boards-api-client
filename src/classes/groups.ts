@@ -70,16 +70,16 @@ export type GroupsFunctionsInput = {
 // Outputs.
 export type GetGroupsOutput = {
 	isAdmin: boolean;
-	groups: SingleOutput & {
+	groups: (SingleOutput & {
 		categories: number;
 		isDefault: boolean;
-	}[];
+	})[];
 }
 
 export type GetGroupOutput = {
 	isAdmin: boolean;
 	group: SingleOutput;
-	categories: SingleOutput & {
+	categories: (SingleOutput & {
 		boards: number;
-	}[];
+	})[];
 }

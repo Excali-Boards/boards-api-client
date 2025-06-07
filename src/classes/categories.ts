@@ -62,17 +62,17 @@ export type CategoriesFunctionsInput = {
 // Outputs.
 export type GetCategoriesOutput = {
 	isAdmin: boolean;
-	categories: SingleOutput & {
+	categories: (SingleOutput & {
 		boards: number;
 		group: SingleOutput;
-	}[];
+	})[];
 }
 
 export type GetCategoryOutput = {
 	isAdmin: boolean;
 	group: SingleOutput;
 	category: SingleOutput;
-	boards: SingleOutput & {
+	boards: (SingleOutput & {
 		boardId: string;
-	}[];
+	})[];
 }
