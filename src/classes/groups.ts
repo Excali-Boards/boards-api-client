@@ -37,7 +37,7 @@ export class APIGroups {
 	public async createCategoryInGroup({ auth, groupId, body }: GroupsFunctionsInput['createCategoryInGroup']) {
 		return await this.web.request<string>({
 			method: 'POST', auth, body,
-			endpoint: this.web.qp(`/data/groups/${groupId}`),
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories`),
 		});
 	}
 
@@ -58,7 +58,7 @@ export class APIGroups {
 	public async reorderCategoriesInGroup({ auth, groupId, body }: GroupsFunctionsInput['reorderCategoriesInGroup']) {
 		return await this.web.request<string>({
 			method: 'PUT', auth, body,
-			endpoint: this.web.qp(`/data/groups/${groupId}`),
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories`),
 		});
 	}
 

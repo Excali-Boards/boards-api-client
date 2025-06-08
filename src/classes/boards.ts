@@ -1,48 +1,63 @@
 import { BoardPermissionType } from '../../prisma/generated/default';
 import { NameInput, SingleOutput } from '../external/types';
 import { WebDataManager } from '../core/manager';
+import { GetRoomsOutput } from './admin';
 
 export class APIBoards {
 	constructor (private web: WebDataManager) { }
 
-	async getBoards({ auth, categoryId, groupId }: DataBoardsFunctionsInput['getBoards']) {
+	public async getBoards({ auth, categoryId, groupId }: BoardsFunctionsInput['getBoards']) {
 		return await this.web.request<GetBoardsOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/data/boards', {
-				categoryId,
-				groupId,
-			}),
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards`),
 		});
 	}
 
-	async getBoard({ auth, boardId }: DataBoardsFunctionsInput['getBoard']) {
+	public async getBoard({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getBoard']) {
 		return await this.web.request<GetBoardOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/boards/${boardId}`),
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
-	async updateBoard({ auth, boardId, body }: DataBoardsFunctionsInput['updateBoard']) {
+	public async updateBoard({ auth, categoryId, groupId, boardId, body }: BoardsFunctionsInput['updateBoard']) {
 		return await this.web.request<string>({
 			method: 'PATCH', auth, body,
-			endpoint: this.web.qp(`/data/boards/${boardId}`),
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
-	async deleteBoard({ auth, boardId }: DataBoardsFunctionsInput['deleteBoard']) {
+	public async deleteBoard({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['deleteBoard']) {
 		return await this.web.request<string>({
 			method: 'DELETE', auth,
-			endpoint: this.web.qp(`/data/boards/${boardId}`),
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
+		});
+	}
+
+	public async getBoardFile({ auth, categoryId, groupId, boardId, fileId }: BoardsFunctionsInput['getBoardFile']) {
+		return await this.web.request<GetFileOutput>({
+			method: 'GET', auth,
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/files/${fileId}`),
+			responseType: 'blob',
+		});
+	}
+
+	public async getBoardRoomData<T>({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getRoomData']) {
+		return await this.web.request<GetRoomsOutput<T>>({
+			method: 'GET', auth,
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`),
 		});
 	}
 }
 
 // Input types
-export type DataBoardsFunctionsInput = {
-	'getBoards': { auth: string; categoryId?: string; groupId?: string; };
-	'getBoard': { auth: string; boardId: string; };
-	'updateBoard': { auth: string; boardId: string; body: NameInput; };
-	'deleteBoard': { auth: string; boardId: string; };
+export type BoardsFunctionsInput = {
+	'getBoards': { auth: string; categoryId: string; groupId: string; };
+	'getBoard': { auth: string; categoryId: string; groupId: string; boardId: string; };
+	'updateBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: NameInput; };
+	'deleteBoard': { auth: string; categoryId: string; groupId: string; boardId: string; };
+	'getBoardFile': { auth: string; categoryId: string; groupId: string; boardId: string; fileId: string; };
+	'getRoomData': { auth: string; categoryId: string; groupId: string; boardId: string; };
 };
 
 // Output types
@@ -78,3 +93,5 @@ export type GetBoardOutput = {
 		}[];
 	};
 };
+
+export type GetFileOutput = ReadableStream | Blob;
