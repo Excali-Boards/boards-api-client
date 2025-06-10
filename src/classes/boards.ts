@@ -27,10 +27,17 @@ export class APIBoards {
 		});
 	}
 
-	public async deleteBoard({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['deleteBoard']) {
+	public async scheduleBoardDeletion({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['scheduleBoardDeletion']) {
 		return await this.web.request<string>({
 			method: 'DELETE', auth,
 			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
+		});
+	}
+
+	public async cancelBoardDeletion({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['cancelBoardDeletion']) {
+		return await this.web.request<string>({
+			method: 'POST', auth,
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/cancel-deletion`),
 		});
 	}
 
@@ -55,7 +62,8 @@ export type BoardsFunctionsInput = {
 	'getBoards': { auth: string; categoryId: string; groupId: string; };
 	'getBoard': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'updateBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: NameInput; };
-	'deleteBoard': { auth: string; categoryId: string; groupId: string; boardId: string; };
+	'scheduleBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
+	'cancelBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'getBoardFile': { auth: string; categoryId: string; groupId: string; boardId: string; fileId: string; };
 	'getRoomData': { auth: string; categoryId: string; groupId: string; boardId: string; };
 };
