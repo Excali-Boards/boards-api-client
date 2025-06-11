@@ -41,14 +41,6 @@ export class APIBoards {
 		});
 	}
 
-	public async getBoardFile({ auth, categoryId, groupId, boardId, fileId }: BoardsFunctionsInput['getBoardFile']) {
-		return await this.web.request<GetFileOutput>({
-			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/files/${fileId}`),
-			responseType: 'blob',
-		});
-	}
-
 	public async getBoardRoomData<T>({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getRoomData']) {
 		return await this.web.request<GetRoomsOutput<T>>({
 			method: 'GET', auth,
@@ -64,7 +56,6 @@ export type BoardsFunctionsInput = {
 	'updateBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: NameInput; };
 	'scheduleBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'cancelBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
-	'getBoardFile': { auth: string; categoryId: string; groupId: string; boardId: string; fileId: string; };
 	'getRoomData': { auth: string; categoryId: string; groupId: string; boardId: string; };
 };
 
