@@ -47,6 +47,15 @@ export class APIBoards {
 			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`),
 		});
 	}
+
+	public async kickUserFromRoom({ auth, categoryId, groupId, boardId, userId }: BoardsFunctionsInput['kickUserFromRoom']) {
+		return await this.web.request<string>({
+			method: 'POST', auth,
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`, {
+				userId,
+			}),
+		});
+	}
 }
 
 // Input types
@@ -57,6 +66,7 @@ export type BoardsFunctionsInput = {
 	'scheduleBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'cancelBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'getRoomData': { auth: string; categoryId: string; groupId: string; boardId: string; };
+	'kickUserFromRoom': { auth: string; categoryId: string; groupId: string; boardId: string; userId: string; };
 };
 
 // Output types
