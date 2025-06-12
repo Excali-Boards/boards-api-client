@@ -47,9 +47,7 @@ model File {
     fileId        String    @unique
 
     mimeType      String
-    created       DateTime
-    lastRetrieved DateTime?
-    version       Int?
+    createdAt       DateTime
 
     boardId String
     board   Board  @relation(fields: [boardId], references: [boardId], onDelete: Cascade)

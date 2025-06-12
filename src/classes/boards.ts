@@ -76,6 +76,7 @@ export type GetBoardsOutput = {
 		group: SingleOutput;
 		category: SingleOutput;
 		board: SingleOutput & {
+			dataUrl: string;
 			accessLevel: BoardPermissionType;
 			files: {
 				fileId: string;
@@ -87,20 +88,8 @@ export type GetBoardsOutput = {
 	}[];
 };
 
-export type GetBoardOutput = {
+export type GetBoardOutput = GetBoardsOutput['boards'][number] & {
 	isAdmin: boolean;
-	group: SingleOutput;
-	category: SingleOutput;
-	board: SingleOutput & {
-		elements: Buffer;
-		accessLevel: BoardPermissionType;
-		files: {
-			fileId: string;
-			mimeType: string;
-			createdAt: Date;
-			fileUrl: string;
-		}[];
-	};
 };
 
 export type GetFileOutput = ReadableStream | Blob;
