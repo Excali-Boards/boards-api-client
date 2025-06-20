@@ -1,5 +1,6 @@
 import { NameInput, SingleOutput } from '../external/types';
 import { WebDataManager } from '../core/manager';
+import { GetBoardsOutput } from './boards';
 
 // Data.
 export class APICategories {
@@ -72,8 +73,5 @@ export type GetCategoryOutput = {
 	isAdmin: boolean;
 	group: SingleOutput;
 	category: SingleOutput;
-	boards: (SingleOutput & {
-		boardId: string;
-		scheduledForDeletion: Date | null;
-	})[];
+	boards: Omit<GetBoardsOutput['boards'][number]['board'], 'files'>[];
 }
