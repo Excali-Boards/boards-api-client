@@ -89,6 +89,7 @@ export type GetGroupsOutput = {
 	groups: (SingleOutput & {
 		categories: number;
 		isDefault: boolean;
+		sizeBytes: number;
 	})[];
 }
 
@@ -97,6 +98,7 @@ export type GetGroupOutput = {
 	group: SingleOutput;
 	categories: (SingleOutput & {
 		boards: number;
+		sizeBytes: number;
 	})[];
 }
 
@@ -105,6 +107,7 @@ export type GetAllSortedOutput = {
 	list: (SingleOutput & {
 		categories: (SingleOutput & {
 			boards: (SingleOutput & {
+				sizeBytes: number;
 				scheduledForDeletion: Date | null;
 			})[];
 		})[];
