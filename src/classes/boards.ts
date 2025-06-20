@@ -78,6 +78,7 @@ export type GetBoardsOutput = {
 		board: SingleOutput & {
 			dataUrl: string;
 			accessLevel: BoardPermissionType;
+			scheduledForDeletion: Date | null;
 			files: {
 				fileId: string;
 				mimeType: string;

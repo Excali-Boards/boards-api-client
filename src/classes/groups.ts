@@ -104,7 +104,9 @@ export type GetAllSortedOutput = {
 	isAdmin: boolean;
 	list: (SingleOutput & {
 		categories: (SingleOutput & {
-			boards: SingleOutput[];
+			boards: (SingleOutput & {
+				scheduledForDeletion: Date | null;
+			})[];
 		})[];
 	})[];
 }

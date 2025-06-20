@@ -74,5 +74,6 @@ export type GetCategoryOutput = {
 	category: SingleOutput;
 	boards: (SingleOutput & {
 		boardId: string;
+		scheduledForDeletion: Date | null;
 	})[];
 }
