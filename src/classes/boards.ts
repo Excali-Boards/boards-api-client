@@ -79,6 +79,7 @@ export type GetBoardsOutput = {
 			dataUrl: string;
 			accessLevel: BoardPermissionType;
 			scheduledForDeletion: Date | null;
+			boardSizeBytes: number;
 			files: {
 				fileId: string;
 				mimeType: string;
