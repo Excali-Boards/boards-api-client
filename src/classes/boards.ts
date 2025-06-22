@@ -1,10 +1,10 @@
 import { BoardPermissionType } from '../../prisma/generated/default';
 import { NameInput, SingleOutput } from '../external/types';
-import { WebDataManager } from '../core/manager';
+import { BoardsManager } from '../core/manager';
 import { GetRoomsOutput } from './admin';
 
 export class APIBoards {
-	constructor (private web: WebDataManager) { }
+	constructor (private web: BoardsManager) { }
 
 	public async getBoards({ auth, categoryId, groupId }: BoardsFunctionsInput['getBoards']) {
 		return await this.web.request<GetBoardsOutput>({

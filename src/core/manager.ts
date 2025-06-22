@@ -10,7 +10,7 @@ import { APIAdmin } from '../classes/admin';
 import { APIAuth } from '../classes/auth';
 import { transformDates } from './utils';
 
-export class WebDataManager {
+export class BoardsManager {
 	readonly categories = new APICategories(this);
 	readonly groups = new APIGroups(this);
 	readonly boards = new APIBoards(this);

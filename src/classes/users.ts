@@ -1,9 +1,9 @@
 import { BoardPermissionType, Platforms } from '../../prisma/generated/default';
-import { WebDataManager } from '../core/manager';
+import { BoardsManager } from '../core/manager';
 
 // Data.
 export class APIUsers {
-	constructor (private web: WebDataManager) { }
+	constructor (private web: BoardsManager) { }
 
 	// Methods.
 	public async getUsers({ auth }: UsersFunctionsInput['getUsers']) {

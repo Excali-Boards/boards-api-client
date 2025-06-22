@@ -1,8 +1,8 @@
-import { WebDataManager } from '../core/manager';
+import { BoardsManager } from '../core/manager';
 
 // Data.
 export class APIStats {
-	constructor (private web: WebDataManager) { }
+	constructor (private web: BoardsManager) { }
 
 	// Methods.
 	public async globalStats({ auth }: StatsFunctionsInput['globalStats']) {

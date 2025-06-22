@@ -1,9 +1,9 @@
 import { BoardPermissionType } from '../../prisma/generated/default';
-import { WebDataManager } from '../core/manager';
+import { BoardsManager } from '../core/manager';
 
 // Data.
 export class APIAdmin {
-	constructor (private web: WebDataManager) { }
+	constructor (private web: BoardsManager) { }
 
 	// Methods.
 	public async getActiveRooms({ auth }: AdminFunctionsInput['getActiveRooms']) {
