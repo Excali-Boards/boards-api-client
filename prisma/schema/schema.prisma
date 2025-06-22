@@ -25,9 +25,15 @@ enum BoardPermissionType {
     Write
 }
 
+enum BoardType {
+    Excalidraw
+    Tldraw
+}
+
 model AllEnumsModel {
     dbId String @id @default(uuid())
 
     platformEnum Platforms
     permissionEnum BoardPermissionType
+    boardTypeEnum BoardType
 }

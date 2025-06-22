@@ -20,12 +20,21 @@ export class APIUtils {
 			}),
 		});
 	}
+
+	public async unfurlLink({ url }: UtilsFunctionsInput['unfurlLink']) {
+		return await this.web.request<UnfurlLink>({
+			method: 'POST',
+			endpoint: this.web.qp('/utils/unfurl'),
+			body: { url },
+		});
+	}
 }
 
 // Types.
 export type UtilsFunctionsInput = {
 	'resolveBoard': { auth: string; body: ResolveBoardInput; };
 	'purgeUnused': { auth: string; boardId?: string; };
+	'unfurlLink': { url: string; };
 }
 
 // External.
@@ -40,3 +49,10 @@ export type ResolveBoardOutput = {
 	groupId: string;
 	categoryId: string;
 };
+
+export type UnfurlLink = Partial<{
+	title: string;
+	description: string;
+	favicon: string;
+	image: string;
+}>;
