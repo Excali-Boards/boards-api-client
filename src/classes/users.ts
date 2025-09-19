@@ -1,4 +1,5 @@
-import { BoardPermissionType, Platforms } from '../../prisma/generated/default';
+import { Platforms } from '../../prisma/generated/default';
+import { DBUserPartialType } from '../external/vars';
 import { BoardsManager } from '../core/manager';
 
 // Data.
@@ -6,19 +7,10 @@ export class APIUsers {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async getUsers({ auth }: UsersFunctionsInput['getUsers']) {
-		return await this.web.request<GetUsersOutput[]>({
+	public async getCurrentUser({ auth }: UsersFunctionsInput['getCurrentUser']) {
+		return await this.web.request<GetUsersOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/users'),
-		});
-	}
-
-	public async getCurrentUser<T extends boolean = never>({ auth, full }: UsersFunctionsInput<T>['getCurrentUser']) {
-		return await this.web.request<GetUsersOutput<T>>({
-			method: 'GET', auth,
-			endpoint: this.web.qp('/users/current', {
-				full,
-			}),
+			endpoint: this.web.qp('/users/current'),
 		});
 	}
 
@@ -40,35 +32,12 @@ export class APIUsers {
 }
 
 // Types.
-export type UsersFunctionsInput<T extends boolean = never> = {
-	'getUsers': { auth: string; };
-	'getCurrentUser': { auth: string; full?: T; };
+export type UsersFunctionsInput = {
+	'getCurrentUser': { auth: string; };
 	'changeMainPlatform': { auth: string; newMainPlatform: Platforms; };
 	'changeMainGroup': { auth: string; newMainGroupId: string | null; };
 }
 
-export type GetUsersOutput<T extends boolean = never> = {
-	id: string;
-	email: string;
-	avatarUrl: string | null;
-	displayName: string;
-	mainLoginType: Platforms;
-	mainGroupId: string | null;
-
+export type GetUsersOutput = DBUserPartialType & {
 	isDev: boolean;
-	isBoardsAdmin: boolean;
-
-	loginMethods: T extends true ? {
-		email: string;
-		platform: Platforms;
-	}[] : never;
-
-	ownedBoards: {
-		boardId: string;
-		boardName: string;
-	}[];
-	boardPermissions: {
-		boardId: string;
-		permissionType: BoardPermissionType;
-	}[];
 }

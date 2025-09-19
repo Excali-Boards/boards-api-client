@@ -84,17 +84,13 @@ export type GroupsFunctionsInput = {
 }
 
 // Outputs.
-export type GetGroupsOutput = {
-	isAdmin: boolean;
-	groups: (SingleOutput & {
-		categories: number;
-		isDefault: boolean;
-		sizeBytes: number;
-	})[];
-}
+export type GetGroupsOutput = SingleOutput & {
+	categories: number;
+	isDefault: boolean;
+	sizeBytes: number;
+}[];
 
 export type GetGroupOutput = {
-	isAdmin: boolean;
 	group: SingleOutput;
 	categories: (SingleOutput & {
 		boards: number;
@@ -102,14 +98,11 @@ export type GetGroupOutput = {
 	})[];
 }
 
-export type GetAllSortedOutput = {
-	isAdmin: boolean;
-	list: (SingleOutput & {
-		categories: (SingleOutput & {
-			boards: (SingleOutput & {
-				sizeBytes: number;
-				scheduledForDeletion: Date | null;
-			})[];
+export type GetAllSortedOutput = SingleOutput & {
+	categories: (SingleOutput & {
+		boards: (SingleOutput & {
+			totalSizeBytes: number;
+			scheduledForDeletion: Date | null;
 		})[];
 	})[];
-}
+}[];

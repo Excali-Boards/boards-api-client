@@ -1,5 +1,4 @@
-import { BoardPermissionType } from '../../prisma/generated/default';
-import { NameInput, SingleOutput } from '../external/types';
+import { AccessLevel, NameInput, SingleOutput } from '../external/types';
 import { BoardsManager } from '../core/manager';
 import { GetRoomsOutput } from './admin';
 
@@ -7,7 +6,7 @@ export class APIBoards {
 	constructor (private web: BoardsManager) { }
 
 	public async getBoards({ auth, categoryId, groupId }: BoardsFunctionsInput['getBoards']) {
-		return await this.web.request<GetBoardsOutput>({
+		return await this.web.request<GetBoardOutput[]>({
 			method: 'GET', auth,
 			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards`),
 		});
@@ -70,28 +69,22 @@ export type BoardsFunctionsInput = {
 };
 
 // Output types
-export type GetBoardsOutput = {
-	isAdmin: boolean;
-	boards: {
-		group: SingleOutput;
-		category: SingleOutput;
-		board: SingleOutput & {
-			dataUrl: string;
+export type GetBoardOutput = {
+	group: SingleOutput;
+	category: SingleOutput;
+	board: SingleOutput & {
+		dataUrl: string;
+		totalSizeBytes: number;
+		accessLevel: AccessLevel;
+		scheduledForDeletion: Date | null;
+		files: {
+			fileId: string;
+			mimeType: string;
+			createdAt: Date;
 			sizeBytes: number;
-			accessLevel: BoardPermissionType;
-			scheduledForDeletion: Date | null;
-			files: {
-				fileId: string;
-				mimeType: string;
-				createdAt: Date;
-				fileUrl: string;
-			}[];
-		};
-	}[];
-};
-
-export type GetBoardOutput = GetBoardsOutput['boards'][number] & {
-	isAdmin: boolean;
+			fileUrl: string;
+		}[];
+	};
 };
 
 export type GetFileOutput = ReadableStream | Blob;

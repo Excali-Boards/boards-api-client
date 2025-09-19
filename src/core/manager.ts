@@ -1,22 +1,24 @@
 import { PaginatedWebResponse, RequestMethod, WebResponse } from '../types';
 import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
+import { APIPermissions } from '../classes/permissions';
 import { APICategories } from '../classes/categories';
+import { APIMetrics } from '../classes/metrics';
+import { APIInvites } from '../classes/invites';
 import { APIGroups } from '../classes/groups';
 import { APIBoards } from '../classes/boards';
-import { APIUtils } from '../classes/utils';
 import { APIUsers } from '../classes/users';
-import { APIStats } from '../classes/stats';
 import { APIAdmin } from '../classes/admin';
 import { APIAuth } from '../classes/auth';
 import { transformDates } from './utils';
 
 export class BoardsManager {
+	readonly permissions = new APIPermissions(this);
 	readonly categories = new APICategories(this);
+	readonly invites = new APIInvites(this);
+	readonly metrics = new APIMetrics(this);
 	readonly groups = new APIGroups(this);
 	readonly boards = new APIBoards(this);
-	readonly stats = new APIStats(this);
 	readonly admin = new APIAdmin(this);
-	readonly utils = new APIUtils(this);
 	readonly users = new APIUsers(this);
 	readonly auth = new APIAuth(this);
 

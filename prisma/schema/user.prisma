@@ -1,24 +1,25 @@
 model User {
-    dbId    String @id @default(uuid())
-    userId  String @unique
-    email String @unique
+    dbId   String @id @default(uuid())
+    userId String @unique
+    email  String @unique
 
     avatarUrl   String?
     displayName String
 
-    mainGroupId   String?
-    isBoardsAdmin Boolean @default(false)
+    mainGroupId String?
 
     mainLoginType Platforms
     loginMethods  LoginMethod[]
 
-    boardPermissions BoardPermission[]
-    boardActivity    BoardActivity[]
-    ownedBoards      Board[]
+    groupPermissions    GroupPermission[]
+    categoryPermissions CategoryPermission[]
+    boardPermissions    BoardPermission[]
+
+    createdInvites Invite[]
 }
 
 model LoginMethod {
-    dbId            String    @id @default(uuid())
+    dbId String @id @default(uuid())
 
     platform      Platforms
     platformEmail String

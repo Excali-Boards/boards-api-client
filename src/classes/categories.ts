@@ -1,6 +1,6 @@
 import { NameInput, SingleOutput } from '../external/types';
 import { BoardsManager } from '../core/manager';
-import { GetBoardsOutput } from './boards';
+import { GetBoardOutput } from './boards';
 
 // Data.
 export class APICategories {
@@ -61,17 +61,13 @@ export type CategoriesFunctionsInput = {
 }
 
 // Outputs.
-export type GetCategoriesOutput = {
-	isAdmin: boolean;
-	categories: (SingleOutput & {
-		boards: number;
-		group: SingleOutput;
-	})[];
-}
+export type GetCategoriesOutput = SingleOutput & {
+	boards: number;
+	group: SingleOutput;
+}[];
 
 export type GetCategoryOutput = {
-	isAdmin: boolean;
 	group: SingleOutput;
 	category: SingleOutput;
-	boards: Omit<GetBoardsOutput['boards'][number]['board'], 'files'>[];
+	boards: Omit<GetBoardOutput, 'files'>[];
 }

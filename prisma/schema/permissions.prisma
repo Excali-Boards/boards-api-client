@@ -1,0 +1,73 @@
+model GroupPermission {
+    dbId String @id @default(uuid())
+
+    groupId String
+    userId  String
+    role    GroupRole
+
+    grantedAt DateTime @default(now())
+    grantedBy String
+
+    group Group @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([groupId, userId])
+}
+
+model CategoryPermission {
+    dbId String @id @default(uuid())
+
+    categoryId String
+    userId     String
+    role       CategoryRole
+
+    grantedAt DateTime @default(now())
+    grantedBy String
+
+    category Category @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
+    user     User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([categoryId, userId])
+}
+
+model BoardPermission {
+    dbId String @id @default(uuid())
+
+    boardId String
+    userId  String
+    role    BoardRole
+
+    grantedAt DateTime @default(now())
+    grantedBy String
+
+    board Board @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([boardId, userId])
+}
+
+model Invite {
+    dbId String @id @default(uuid())
+
+    code String @unique
+
+    // Allow invites to multiple groups, categories, or boards
+    // If multiple are specified, the invite grants access to all of them
+    groupIds  String[]
+    groupRole GroupRole?
+
+    categoryIds  String[]
+    categoryRole CategoryRole?
+
+    boardIds  String[]
+    boardRole BoardRole?
+
+    createdBy String
+    createdAt DateTime @default(now())
+    expiresAt DateTime
+
+    maxUses     Int @default(1)
+    currentUses Int @default(0)
+
+    creator User @relation(fields: [createdBy], references: [userId])
+}
