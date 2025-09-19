@@ -1,4 +1,5 @@
-import { BoardRole, CategoryRole, GroupRole, TSPrisma } from '../../prisma/generated/default';
+import { BoardRole, CategoryRole, GroupRole } from './vars';
+import { TSPrisma } from '../../prisma/generated/default';
 
 // Structures.
 export type User = TSPrisma.TSPrismaModelsFull['User'];
@@ -26,6 +27,15 @@ export type AccessLevel = 'read' | 'write' | 'manage' | 'admin';
 
 export type ResourceType = 'group' | 'category' | 'board';
 export type GlobalResourceType = ResourceType | 'global';
+
+export type BulkPermissions = 'all-groups' | 'group-categories' | 'category-boards';
+
+export type GrantedRoles = GrantedRole[];
+export type GrantedRole = {
+	type: ResourceType;
+	resourceId: string;
+	role: UserRole;
+};
 
 // Other.
 export type SingleOutput = {

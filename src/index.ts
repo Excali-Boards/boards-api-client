@@ -1,6 +1,9 @@
 export * from './core/manager';
 export * from './types';
 
+export * from './external/types';
+export * from './external/vars';
+
 export * from './classes/permissions';
 export * from './classes/categories';
 export * from './classes/invites';

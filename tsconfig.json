@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		/* Basic Options */
-		"incremental": true,		
 		"module": "CommonJS",
 		"target": "ES2022",
 		"outDir": "./dist",
@@ -26,9 +25,6 @@
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"baseUrl": ".",
-		"paths": {
-			"prisma/generated/*": ["./prisma/generated/*"]
-		},
 
 		"declaration": true,
 		"skipLibCheck": true,

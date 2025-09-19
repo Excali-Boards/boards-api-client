@@ -17,3 +17,29 @@ export const DBUserSelectArgs = {
 
 export const DBUserPartial = Prisma.validator<Prisma.UserDefaultArgs>()(DBUserSelectArgs);
 export type DBUserPartialType = Prisma.UserGetPayload<typeof DBUserPartial>;
+
+export enum Platforms {
+	Google = 'Google',
+	GitHub = 'GitHub',
+	Discord = 'Discord',
+	Microsoft = 'Microsoft',
+}
+
+export enum BoardRole {
+	BoardViewer = 'BoardViewer',
+	BoardCollaborator = 'BoardCollaborator',
+}
+
+export enum CategoryRole {
+	CategoryViewer = 'CategoryViewer',
+	CategoryCollaborator = 'CategoryCollaborator',
+	CategoryManager = 'CategoryManager',
+	CategoryAdmin = 'CategoryAdmin',
+}
+
+export enum GroupRole {
+	GroupViewer = 'GroupViewer',
+	GroupCollaborator = 'GroupCollaborator',
+	GroupManager = 'GroupManager',
+	GroupAdmin = 'GroupAdmin',
+}

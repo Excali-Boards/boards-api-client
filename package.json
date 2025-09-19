@@ -1,5 +1,5 @@
 {
-	"version": "1.1.0",
+	"version": "1.1.1-dev.6",
 	"name": "@excali-boards/boards-api-client",
 	"description": "A simple API client for the Boards API.",
 	"repository": "https://github.com/Excali-Boards/boards-api-client",
@@ -14,7 +14,17 @@
 		"updates": "pnpm npm-check-updates -i --format group"
 	},
 	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"license": "GPL-3.0",
+	"files": [
+		"dist",
+		"prisma/schema",
+		"prisma.config.ts",
+		"tsconfig.esm.json",
+		"tsconfig.json",
+		"README.md",
+		"LICENSE"
+	],
 	"pnpm": {
 		"onlyBuiltDependencies": [
 			"@prisma/client",

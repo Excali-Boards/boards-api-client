@@ -1,5 +1,5 @@
-import { BoardRole, CategoryRole, GroupRole } from '../../prisma/generated/default';
-import { ResourceType } from '../external/types';
+import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
+import { GrantedRoles } from '../external/types';
 import { BoardsManager } from '../core/manager';
 
 // Data.
@@ -78,14 +78,8 @@ export type GetInvitesOutput = {
 	createdAt: string;
 }[];
 
-export type GrantedRole = {
-	type: ResourceType;
-	resourceId: string;
-	role: BoardRole | CategoryRole | GroupRole;
-};
-
 export type UseInviteOutput = {
-	granted: GrantedRole[];
+	granted: GrantedRoles;
 	details: {
 		groups: { groupId: string; name: string; }[];
 		categories: { categoryId: string; name: string; groupId: string; }[];
