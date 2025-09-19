@@ -8,7 +8,7 @@ export class APIBoards {
 	public async getBoards({ auth, categoryId, groupId }: BoardsFunctionsInput['getBoards']) {
 		return await this.web.request<GetBoardOutput[]>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards`),
+			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}`),
 		});
 	}
 

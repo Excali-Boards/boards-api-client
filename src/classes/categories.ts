@@ -10,7 +10,7 @@ export class APICategories {
 	public async getCategories({ auth, groupId }: CategoriesFunctionsInput['getCategories']) {
 		return await this.web.request<GetCategoriesOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories`),
+			endpoint: this.web.qp(`/data/groups/${groupId}`),
 		});
 	}
 
@@ -61,10 +61,10 @@ export type CategoriesFunctionsInput = {
 }
 
 // Outputs.
-export type GetCategoriesOutput = SingleOutput & {
+export type GetCategoriesOutput = (SingleOutput & {
 	boards: number;
 	group: SingleOutput;
-}[];
+})[];
 
 export type GetCategoryOutput = {
 	group: SingleOutput;
