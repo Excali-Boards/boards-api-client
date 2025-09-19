@@ -1,5 +1,7 @@
+import { BulkViewPermissionsQuery, ViewPermissionsQuery } from './permissions';
 import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
 import { GrantedRoles } from '../external/types';
+import { Invite } from '../../prisma/generated';
 import { BoardsManager } from '../core/manager';
 
 // Data.
@@ -7,10 +9,31 @@ export class APIInvites {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async getInvites({ auth }: InvitesFunctionsInput['getInvites']) {
-		return await this.web.request<GetInvitesOutput>({
+	public async getUserInvites({ auth }: InvitesFunctionsInput['getUserInvites']) {
+		return await this.web.request<GetUserInvitesOutput>({
 			method: 'GET', auth,
 			endpoint: this.web.qp('/invites'),
+		});
+	}
+
+	public async getResourceInvites({ auth, query }: InvitesFunctionsInput['getResourceInvites']) {
+		return await this.web.request<GetResourceInvitesOutput>({
+			method: 'GET', auth,
+			endpoint: this.web.qp('/invites/view', query),
+		});
+	}
+
+	public async bulkGetResourceInvites({ auth, query }: InvitesFunctionsInput['bulkGetResourceInvites']) {
+		return await this.web.request<GetResourceInvitesOutput>({
+			method: 'GET', auth,
+			endpoint: this.web.qp('/invites/view-bulk', query),
+		});
+	}
+
+	public async getInviteDetails({ auth, code }: InvitesFunctionsInput['getInviteDetails']) {
+		return await this.web.request<InviteDetails>({
+			method: 'GET', auth,
+			endpoint: this.web.qp(`/invites/${code}`),
 		});
 	}
 
@@ -38,7 +61,10 @@ export class APIInvites {
 
 // Types.
 export type InvitesFunctionsInput = {
-	'getInvites': { auth: string; };
+	'getUserInvites': { auth: string; };
+	'getResourceInvites': { auth: string; query: ViewPermissionsQuery; };
+	'bulkGetResourceInvites': { auth: string; query: BulkViewPermissionsQuery; };
+	'getInviteDetails': { auth: string; code: string; };
 	'createInvite': { auth: string; body: CreateInviteInput; };
 	'useInvite': { auth: string; code: string; };
 	'revokeInvite': { auth: string; code: string; };
@@ -62,21 +88,9 @@ export type CreateInviteOutput = {
 	maxUses: number;
 };
 
-export type GetInvitesOutput = {
-	dbId: string;
-	code: string;
-	createdBy: string;
-	expiresAt: string | null;
-	maxUses: number | null;
-	currentUses: number;
-	groupIds: string[];
-	categoryIds: string[];
-	boardIds: string[];
-	groupRole: GroupRole | null;
-	categoryRole: CategoryRole | null;
-	boardRole: BoardRole | null;
-	createdAt: string;
-}[];
+export type GetUserInvitesOutput = Invite[];
+
+export type GetResourceInvitesOutput = InviteData[];
 
 export type UseInviteOutput = {
 	granted: GrantedRoles;
@@ -85,4 +99,12 @@ export type UseInviteOutput = {
 		categories: { categoryId: string; name: string; groupId: string; }[];
 		boards: { boardId: string; name: string; categoryId: string; }[];
 	};
+};
+
+export type InviteDetails = Pick<Invite, 'code' | 'expiresAt' | 'maxUses' | 'currentUses'>;
+
+export type InviteData = Pick<Invite, 'code' | 'expiresAt' | 'maxUses' | 'currentUses' | 'boardRole' | 'categoryRole' | 'groupRole'> & {
+	groups: { groupId: string; name: string; }[];
+	categories: { categoryId: string; name: string; groupId: string; }[];
+	boards: { boardId: string; name: string; categoryId: string; }[];
 };
