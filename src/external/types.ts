@@ -32,6 +32,7 @@ export type SingleOutput = {
 	id: string;
 	name: string;
 	index: number;
+	accessLevel: AccessLevel;
 }
 
 export type NameInput = {

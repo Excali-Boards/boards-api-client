@@ -1,4 +1,4 @@
-import { AccessLevel, NameInput, SingleOutput } from '../external/types';
+import { NameInput, SingleOutput } from '../external/types';
 import { BoardsManager } from '../core/manager';
 
 // Data.
@@ -94,7 +94,6 @@ export type GetGroupOutput = {
 	group: SingleOutput;
 	categories: (SingleOutput & {
 		boards: number;
-		accessLevel: AccessLevel;
 		totalSizeBytes: number;
 	})[];
 }

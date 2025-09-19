@@ -69,5 +69,5 @@ export type GetCategoriesOutput = (SingleOutput & {
 export type GetCategoryOutput = {
 	group: SingleOutput;
 	category: SingleOutput;
-	boards: Omit<GetBoardOutput, 'files'>[];
+	boards: Omit<GetBoardOutput['board'], 'files'>[];
 }
