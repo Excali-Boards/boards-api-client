@@ -1,4 +1,5 @@
 import { Prisma } from '../../prisma/generated/default';
+import { GlobalRole, UserRole } from './types';
 
 export const DBUserSelectArgs = {
 	select: {
@@ -43,3 +44,25 @@ export enum GroupRole {
 	GroupManager = 'GroupManager',
 	GroupAdmin = 'GroupAdmin',
 }
+
+// Variables.
+export const SimplePermissionHierarchy: Record<string, number> = {
+	Viewer: 1,
+	Collaborator: 2,
+	Manager: 3,
+	Admin: 4,
+};
+
+export const PermissionHierarchy: Record<UserRole, number> = {
+	[BoardRole.BoardViewer]: 1,
+	[BoardRole.BoardCollaborator]: 2,
+	[CategoryRole.CategoryViewer]: 3,
+	[CategoryRole.CategoryCollaborator]: 4,
+	[CategoryRole.CategoryManager]: 5,
+	[CategoryRole.CategoryAdmin]: 6,
+	[GroupRole.GroupViewer]: 7,
+	[GroupRole.GroupCollaborator]: 8,
+	[GroupRole.GroupManager]: 9,
+	[GroupRole.GroupAdmin]: 10,
+	[GlobalRole.Developer]: 11,
+};

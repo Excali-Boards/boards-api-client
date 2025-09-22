@@ -16,6 +16,26 @@ model User {
     boardPermissions    BoardPermission[]
 
     createdInvites Invite[]
+    sessions       Session[]
+}
+
+model Session {
+    dbId String @id @default(uuid())
+
+    token String @unique
+
+    device            Device?
+    locationEncrypted String?
+
+    userId String
+    user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    expiresAt DateTime
+    lastUsed  DateTime @default(now())
+
+    @@index([userId])
+    @@index([expiresAt])
 }
 
 model LoginMethod {

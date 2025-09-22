@@ -1,5 +1,5 @@
-import { BulkPermissions, GrantedRoles, ResourceType } from '../external/types';
 import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
+import { GrantedEntry, ResourceType } from '../external/types';
 import { BoardsManager } from '../core/manager';
 
 // Data.
@@ -11,13 +11,6 @@ export class APIPermissions {
 		return await this.web.request<ViewPermissionsOutput>({
 			method: 'GET', auth,
 			endpoint: this.web.qp('/permissions/view', query),
-		});
-	}
-
-	public async bulkViewPermissions({ auth, query }: PermissionsFunctionsInput['bulkViewPermissions']) {
-		return await this.web.request<ViewPermissionsOutput>({
-			method: 'GET', auth,
-			endpoint: this.web.qp('/permissions/view-bulk', query),
 		});
 	}
 
@@ -39,23 +32,14 @@ export class APIPermissions {
 // Types.
 export type PermissionsFunctionsInput = {
 	'viewPermissions': { auth: string; query: ViewPermissionsQuery; };
-	'bulkViewPermissions': { auth: string; query: BulkViewPermissionsQuery; };
 	'grantPermissions': { auth: string; body: GrantPermissionsInput; };
 	'revokePermissions': { auth: string; body: RevokePermissionsInput; };
 }
 
 // External.
 export type ViewPermissionsQuery = {
-	type: ResourceType; // for board you must also provide categoryId and groupId, for category you must provide groupId
-	groupId?: string;
-	categoryId?: string;
-	boardId?: string;
-};
-
-export type BulkViewPermissionsQuery = {
-	mode: BulkPermissions; // for 'group-categories' you must provide groupId, for 'category-boards' you must provide categoryId and  groupId, for 'all-groups' no additional parameters are required
-	groupId?: string;
-	categoryId?: string;
+	type: ResourceType;
+	id: string;
 };
 
 export type ViewPermissionsOutput = {
@@ -63,7 +47,7 @@ export type ViewPermissionsOutput = {
 	email: string;
 	displayName: string;
 	avatarUrl: string | null;
-	permissions: GrantedRoles;
+	permissions: GrantedEntry[];
 }[];
 
 export type GrantPermissionsInput = {

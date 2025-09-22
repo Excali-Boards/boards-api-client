@@ -19,6 +19,13 @@ enum Platforms {
     GitHub
 }
 
+enum Device {
+    Desktop
+    Mobile
+    Tablet
+    Other
+}
+
 // Separate role enums for each resource type
 enum BoardRole {
     BoardViewer // read-only to specific board
@@ -43,6 +50,7 @@ model AllEnumsModel {
     dbId String @id @default(uuid())
 
     platformEnum Platforms
+    deviceEnum   Device
 
     boardRoleEnum    BoardRole
     categoryRoleEnum CategoryRole

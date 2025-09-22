@@ -34,7 +34,6 @@ export type SystemStatus = {
 	activeRooms: number;
 	socketConnections: number;
 	queuedFiles: number;
-	cacheSize: number;
 
 	totalUsers: number;
 	totalInvites: number;

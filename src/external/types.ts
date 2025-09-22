@@ -28,8 +28,6 @@ export type AccessLevel = 'read' | 'write' | 'manage' | 'admin';
 export type ResourceType = 'group' | 'category' | 'board';
 export type GlobalResourceType = ResourceType | 'global';
 
-export type BulkPermissions = 'all-groups' | 'group-categories' | 'category-boards';
-
 export type GrantedRoles = GrantedRole[];
 export type GrantedRole = {
 	type: ResourceType;
@@ -43,8 +41,16 @@ export type SingleOutput = {
 	name: string;
 	index: number;
 	accessLevel: AccessLevel;
-}
+};
 
 export type NameInput = {
 	name: string;
-}
+};
+
+export type GrantedEntry = {
+	type: ResourceType;
+	role: UserRole;
+	resourceId: string;
+	basedOnType: ResourceType;
+	basedOnResourceId: string;
+};

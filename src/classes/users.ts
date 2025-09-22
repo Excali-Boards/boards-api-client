@@ -10,23 +10,21 @@ export class APIUsers {
 	public async getCurrentUser({ auth }: UsersFunctionsInput['getCurrentUser']) {
 		return await this.web.request<GetUsersOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/users/current'),
+			endpoint: this.web.qp('/users'),
 		});
 	}
 
-	public async changeMainPlatform({ auth, newMainPlatform }: UsersFunctionsInput['changeMainPlatform']) {
+	public async updateUser({ auth, body }: UsersFunctionsInput['updateUser']) {
 		return await this.web.request<string>({
-			method: 'POST', auth,
-			endpoint: this.web.qp('/users/change-main-platform'),
-			body: { name: newMainPlatform },
+			method: 'PATCH', auth, body,
+			endpoint: this.web.qp('/users'),
 		});
 	}
 
-	public async changeMainGroup({ auth, newMainGroupId }: UsersFunctionsInput['changeMainGroup']) {
-		return await this.web.request<string>({
-			method: 'POST', auth,
-			endpoint: this.web.qp('/users/change-main-group'),
-			body: { groupId: newMainGroupId },
+	public async deleteAccount({ auth }: UsersFunctionsInput['deleteAccount']) {
+		return await this.web.request<void>({
+			method: 'DELETE', auth,
+			endpoint: this.web.qp('/users'),
 		});
 	}
 }
@@ -34,10 +32,16 @@ export class APIUsers {
 // Types.
 export type UsersFunctionsInput = {
 	'getCurrentUser': { auth: string; };
-	'changeMainPlatform': { auth: string; newMainPlatform: Platforms; };
-	'changeMainGroup': { auth: string; newMainGroupId: string | null; };
+	'updateUser': { auth: string; body: UserInput; };
+	'deleteAccount': { auth: string; };
+	'isCurrentUserDev': { auth: string; };
 }
 
 export type GetUsersOutput = DBUserPartialType & {
 	isDev: boolean;
+}
+
+export type UserInput = {
+	mainGroupId?: string | null;
+	platform?: Platforms;
 }

@@ -1,6 +1,5 @@
-import { BulkViewPermissionsQuery, ViewPermissionsQuery } from './permissions';
 import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
-import { GrantedRoles } from '../external/types';
+import { GrantedRoles, ResourceType } from '../external/types';
 import { Invite } from '../../prisma/generated';
 import { BoardsManager } from '../core/manager';
 
@@ -19,14 +18,7 @@ export class APIInvites {
 	public async getResourceInvites({ auth, query }: InvitesFunctionsInput['getResourceInvites']) {
 		return await this.web.request<GetResourceInvitesOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/invites/view', query),
-		});
-	}
-
-	public async bulkGetResourceInvites({ auth, query }: InvitesFunctionsInput['bulkGetResourceInvites']) {
-		return await this.web.request<GetResourceInvitesOutput>({
-			method: 'GET', auth,
-			endpoint: this.web.qp('/invites/view-bulk', query),
+			endpoint: this.web.qp('/resources/invites', query),
 		});
 	}
 
@@ -62,8 +54,7 @@ export class APIInvites {
 // Types.
 export type InvitesFunctionsInput = {
 	'getUserInvites': { auth: string; };
-	'getResourceInvites': { auth: string; query: ViewPermissionsQuery; };
-	'bulkGetResourceInvites': { auth: string; query: BulkViewPermissionsQuery; };
+	'getResourceInvites': { auth: string; query: ViewInvitesQuery; };
 	'getInviteDetails': { auth: string; code: string; };
 	'createInvite': { auth: string; body: CreateInviteInput; };
 	'useInvite': { auth: string; code: string; };
@@ -71,6 +62,13 @@ export type InvitesFunctionsInput = {
 }
 
 // External.
+export type ViewInvitesQuery = {
+	type: ResourceType;
+	groupId?: string;
+	categoryId?: string;
+	boardId?: string;
+};
+
 export type CreateInviteInput = {
 	groupIds?: string[];
 	categoryIds?: string[];
@@ -88,7 +86,10 @@ export type CreateInviteOutput = {
 	maxUses: number;
 };
 
-export type GetUserInvitesOutput = Invite[];
+export type GetUserInvitesOutput = {
+	invites: InviteData[];
+	canInvite: boolean;
+};
 
 export type GetResourceInvitesOutput = InviteData[];
 
@@ -101,7 +102,17 @@ export type UseInviteOutput = {
 	};
 };
 
-export type InviteDetails = Pick<Invite, 'code' | 'expiresAt' | 'maxUses' | 'currentUses'>;
+export type InviteDetails = {
+	code: string;
+	expiresAt: string;
+	maxUses: number;
+	currentUses: number;
+	invitedBy: {
+		userId: string;
+		displayName: string;
+		avatarUrl: string | null;
+	};
+};
 
 export type InviteData = Pick<Invite, 'code' | 'expiresAt' | 'maxUses' | 'currentUses' | 'boardRole' | 'categoryRole' | 'groupRole'> & {
 	groups: { groupId: string; name: string; }[];
