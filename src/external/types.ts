@@ -56,4 +56,5 @@ export type GrantedEntry = {
 
 	basedOnType: ResourceType;
 	basedOnResourceId: string;
+	basedOnResourceName: string;
 };
