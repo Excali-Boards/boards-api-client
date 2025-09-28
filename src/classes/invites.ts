@@ -43,6 +43,13 @@ export class APIInvites {
 		});
 	}
 
+	public async renewInvite({ auth, code }: InvitesFunctionsInput['renewInvite']) {
+		return await this.web.request<RenewInviteOutput>({
+			method: 'PATCH', auth,
+			endpoint: this.web.qp(`/invites/${code}`),
+		});
+	}
+
 	public async revokeInvite({ auth, code }: InvitesFunctionsInput['revokeInvite']) {
 		return await this.web.request<string>({
 			method: 'DELETE', auth,
@@ -59,6 +66,7 @@ export type InvitesFunctionsInput = {
 	'createInvite': { auth: string; body: CreateInviteInput; };
 	'useInvite': { auth: string; code: string; };
 	'revokeInvite': { auth: string; code: string; };
+	'renewInvite': { auth: string; code: string; };
 }
 
 // External.
@@ -86,6 +94,10 @@ export type CreateInviteOutput = {
 	maxUses: number;
 };
 
+export type RenewInviteOutput = CreateInviteOutput & {
+	currentUses: number;
+};
+
 export type GetUserInvitesOutput = {
 	invites: InviteData[];
 	canInvite: boolean;
@@ -102,11 +114,7 @@ export type UseInviteOutput = {
 	};
 };
 
-export type InviteDetails = {
-	code: string;
-	expiresAt: string;
-	maxUses: number;
-	currentUses: number;
+export type InviteDetails = RenewInviteOutput & {
 	invitedBy: {
 		userId: string;
 		displayName: string;
