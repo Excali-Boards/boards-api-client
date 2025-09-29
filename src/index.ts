@@ -11,5 +11,6 @@ export * from './classes/invites';
 export * from './classes/metrics';
 export * from './classes/groups';
 export * from './classes/boards';
+export * from './classes/utils';
 export * from './classes/admin';
 export * from './classes/users';

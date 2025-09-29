@@ -7,6 +7,7 @@ import { APIMetrics } from '../classes/metrics';
 import { APIInvites } from '../classes/invites';
 import { APIGroups } from '../classes/groups';
 import { APIBoards } from '../classes/boards';
+import { APIUtils } from '../classes/utils';
 import { APIUsers } from '../classes/users';
 import { APIAdmin } from '../classes/admin';
 import { transformDates } from './utils';
@@ -21,6 +22,7 @@ export class BoardsManager {
 	readonly boards = new APIBoards(this);
 	readonly admin = new APIAdmin(this);
 	readonly users = new APIUsers(this);
+	readonly utils = new APIUtils(this);
 
 	constructor (public url: string) { }
 
