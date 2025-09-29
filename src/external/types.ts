@@ -1,5 +1,5 @@
+import { TSPrisma, BoardType } from '../../prisma/generated/default';
 import { BoardRole, CategoryRole, GroupRole } from './vars';
-import { TSPrisma } from '../../prisma/generated/default';
 
 // Structures.
 export type User = TSPrisma.TSPrismaModelsFull['User'];
@@ -46,6 +46,10 @@ export type SingleOutput = {
 export type NameInput = {
 	name: string;
 };
+
+export type BoardInput = NameInput & {
+	type: BoardType;
+}
 
 export type GrantedEntry = {
 	role: UserRole;

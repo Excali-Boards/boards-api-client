@@ -26,31 +26,37 @@ enum Device {
     Other
 }
 
+enum BoardType {
+    Excalidraw
+    Tldraw
+}
+
 // Separate role enums for each resource type
 enum BoardRole {
     BoardViewer // read-only to specific board
-    BoardCollaborator // read/write to specific board
+    BoardCollaborator // BoardViewer + write to specific board
 }
 
 enum CategoryRole {
     CategoryViewer // read-only to all boards in category
-    CategoryCollaborator // read/write to all boards in category
-    CategoryManager // read/write/create/delete boards in category
-    CategoryAdmin // full category control + user management
+    CategoryCollaborator // CategoryViewer + write to all boards in category
+    CategoryManager // CategoryCollaborator + create/delete boards in category
+    CategoryAdmin // CategoryManager + user/invite management
 }
 
 enum GroupRole {
     GroupViewer // read-only to all categories and boards in group
-    GroupCollaborator // read/write to all categories and boards in group
-    GroupManager // read/write/create/delete categories and boards in group
-    GroupAdmin // full group control + user management
+    GroupCollaborator // GroupViewer + write to all categories and boards in group
+    GroupManager // GroupCollaborator + create/delete categories and boards in group
+    GroupAdmin // GroupManager + user/invite management
 }
 
 model AllEnumsModel {
     dbId String @id @default(uuid())
 
-    platformEnum Platforms
-    deviceEnum   Device
+    platformEnum  Platforms
+    deviceEnum    Device
+    boardTypeEnum BoardType
 
     boardRoleEnum    BoardRole
     categoryRoleEnum CategoryRole
