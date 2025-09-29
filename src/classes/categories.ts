@@ -1,4 +1,4 @@
-import { NameInput, SingleOutput } from '../external/types';
+import { BoardInput, NameInput, SingleOutput } from '../external/types';
 import { BoardsManager } from '../core/manager';
 import { GetBoardOutput } from './boards';
 
@@ -54,7 +54,7 @@ export class APICategories {
 export type CategoriesFunctionsInput = {
 	'getCategories': { auth: string; groupId: string; };
 	'getCategory': { auth: string; groupId: string; categoryId: string; };
-	'createBoardInCategory': { auth: string; groupId: string; categoryId: string; body: NameInput; };
+	'createBoardInCategory': { auth: string; groupId: string; categoryId: string; body: BoardInput; };
 	'updateCategory': { auth: string; groupId: string; categoryId: string; body: NameInput; };
 	'reorderBoards': { auth: string; groupId: string; categoryId: string; body: string[]; };
 	'deleteCategory': { auth: string; groupId: string; categoryId: string; };
