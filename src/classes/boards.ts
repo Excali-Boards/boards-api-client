@@ -1,4 +1,5 @@
 import { AccessLevel, NameInput, SingleOutput } from '../external/types';
+import { BoardType } from '../../prisma/generated/default';
 import { BoardsManager } from '../core/manager';
 import { GetRoomsOutput } from './admin';
 
@@ -73,6 +74,7 @@ export type GetBoardOutput = {
 	group: SingleOutput;
 	category: SingleOutput;
 	board: SingleOutput & {
+		type: BoardType;
 		dataUrl: string;
 		totalSizeBytes: number;
 		accessLevel: AccessLevel;
