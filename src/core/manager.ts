@@ -9,6 +9,7 @@ import { APIGroups } from '../classes/groups';
 import { APIBoards } from '../classes/boards';
 import { APIUtils } from '../classes/utils';
 import { APIUsers } from '../classes/users';
+import { APIFiles } from '../classes/files';
 import { APIAdmin } from '../classes/admin';
 import { transformDates } from './utils';
 
@@ -23,6 +24,7 @@ export class BoardsManager {
 	readonly admin = new APIAdmin(this);
 	readonly users = new APIUsers(this);
 	readonly utils = new APIUtils(this);
+	readonly files = new APIFiles(this);
 
 	constructor (public url: string) { }
 

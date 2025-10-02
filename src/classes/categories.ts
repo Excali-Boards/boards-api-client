@@ -10,42 +10,42 @@ export class APICategories {
 	public async getCategories({ auth, groupId }: CategoriesFunctionsInput['getCategories']) {
 		return await this.web.request<GetCategoriesOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}`),
+			endpoint: this.web.qp(`/groups/${groupId}`),
 		});
 	}
 
 	public async getCategory({ auth, groupId, categoryId }: CategoriesFunctionsInput['getCategory']) {
 		return await this.web.request<GetCategoryOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}`),
 		});
 	}
 
 	public async createBoardInCategory({ auth, groupId, categoryId, body }: CategoriesFunctionsInput['createBoardInCategory']) {
 		return await this.web.request<string>({
 			method: 'POST', auth, body,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards`),
 		});
 	}
 
 	public async updateCategory({ auth, groupId, categoryId, body }: CategoriesFunctionsInput['updateCategory']) {
 		return await this.web.request<string>({
 			method: 'PATCH', auth, body,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}`),
 		});
 	}
 
 	public async reorderBoardsInCategory({ auth, groupId, categoryId, body }: CategoriesFunctionsInput['reorderBoards']) {
 		return await this.web.request<string>({
 			method: 'PUT', auth, body,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards`),
 		});
 	}
 
 	public async deleteCategory({ auth, groupId, categoryId }: CategoriesFunctionsInput['deleteCategory']) {
 		return await this.web.request<string>({
 			method: 'DELETE', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}`),
 		});
 	}
 }

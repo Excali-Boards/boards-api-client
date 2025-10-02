@@ -14,3 +14,4 @@ export * from './classes/boards';
 export * from './classes/utils';
 export * from './classes/admin';
 export * from './classes/users';
+export * from './classes/files';

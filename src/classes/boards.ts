@@ -9,49 +9,49 @@ export class APIBoards {
 	public async getBoards({ auth, categoryId, groupId }: BoardsFunctionsInput['getBoards']) {
 		return await this.web.request<GetBoardOutput[]>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}`),
 		});
 	}
 
 	public async getBoard({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getBoard']) {
 		return await this.web.request<GetBoardOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
 	public async updateBoard({ auth, categoryId, groupId, boardId, body }: BoardsFunctionsInput['updateBoard']) {
 		return await this.web.request<string>({
 			method: 'PATCH', auth, body,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
 	public async scheduleBoardDeletion({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['scheduleBoardDeletion']) {
 		return await this.web.request<string>({
 			method: 'DELETE', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
 	public async cancelBoardDeletion({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['cancelBoardDeletion']) {
 		return await this.web.request<string>({
 			method: 'POST', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/cancel-deletion`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/cancel-deletion`),
 		});
 	}
 
 	public async getBoardRoomData<T>({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getRoomData']) {
 		return await this.web.request<GetRoomsOutput<T>>({
 			method: 'GET', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`),
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`),
 		});
 	}
 
 	public async kickUserFromRoom({ auth, categoryId, groupId, boardId, userId }: BoardsFunctionsInput['kickUserFromRoom']) {
 		return await this.web.request<string>({
 			method: 'POST', auth,
-			endpoint: this.web.qp(`/data/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`, {
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`, {
 				userId,
 			}),
 		});

@@ -29,6 +29,7 @@ enum Device {
 enum BoardType {
     Excalidraw
     Tldraw
+    Text
 }
 
 // Separate role enums for each resource type
