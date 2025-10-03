@@ -62,3 +62,17 @@ export type GrantedEntry = {
 	basedOnResourceId: string;
 	basedOnResourceName: string;
 };
+
+export type AllRooms = {
+	boardId: string;
+	elements: number;
+	type: BoardType;
+	collaborators: CollabUser[];
+}[];
+
+export type CollabUser = {
+	id: string;
+	socketId: string;
+	username: string;
+	avatarUrl: string | null;
+};

@@ -1,4 +1,5 @@
 import { BoardsManager } from '../core/manager';
+import { AllRooms } from '../external/types';
 import { GetUsersOutput } from './users';
 
 // Data.
@@ -14,7 +15,7 @@ export class APIAdmin {
 	}
 
 	public async getActiveRooms({ auth }: AdminFunctionsInput['getActiveRooms']) {
-		return await this.web.request<GetRoomsOutput<number>[]>({
+		return await this.web.request<AllRooms>({
 			method: 'GET', auth,
 			endpoint: this.web.qp('/admin/rooms'),
 		});
@@ -25,15 +26,4 @@ export class APIAdmin {
 export type AdminFunctionsInput = {
 	'getUsers': { auth: string; };
 	'getActiveRooms': { auth: string; };
-}
-
-export type GetRoomsOutput<T> = {
-	boardId: string;
-	elements: T;
-	collaborators: {
-		id: string;
-		socketId: string;
-		username: string;
-		avatarUrl: string | null;
-	}[];
 }

@@ -1,7 +1,6 @@
-import { AccessLevel, NameInput, SingleOutput } from '../external/types';
+import { AccessLevel, AllRooms, NameInput, SingleOutput } from '../external/types';
 import { BoardType } from '../../prisma/generated/default';
 import { BoardsManager } from '../core/manager';
-import { GetRoomsOutput } from './admin';
 
 export class APIBoards {
 	constructor (private web: BoardsManager) { }
@@ -41,8 +40,8 @@ export class APIBoards {
 		});
 	}
 
-	public async getBoardRoomData<T>({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getRoomData']) {
-		return await this.web.request<GetRoomsOutput<T>>({
+	public async getBoardRoomData({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getRoomData']) {
+		return await this.web.request<AllRooms>({
 			method: 'GET', auth,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`),
 		});
