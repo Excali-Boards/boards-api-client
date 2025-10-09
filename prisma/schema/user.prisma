@@ -15,8 +15,9 @@ model User {
     categoryPermissions CategoryPermission[]
     boardPermissions    BoardPermission[]
 
-    createdInvites Invite[]
     sessions       Session[]
+    createdEvents  Event[]
+    createdInvites Invite[]
 }
 
 model Session {

@@ -5,6 +5,7 @@ model Group {
     name  String
     index Int
 
+    events      Event[]
     categories  Category[]
     permissions GroupPermission[]
 }

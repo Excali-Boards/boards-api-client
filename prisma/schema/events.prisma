@@ -1,0 +1,26 @@
+model Event {
+    dbId    String @id @default(uuid())
+    eventId String @unique
+
+    title String
+    start DateTime
+    end   DateTime
+    color String   @default("#9676ca")
+
+    where       String?
+    description String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    groupId String
+    group   Group  @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
+
+    createdBy String
+    creator   User   @relation(fields: [createdBy], references: [userId], onDelete: Cascade)
+
+    @@index([createdBy])
+    @@index([groupId])
+    @@index([start])
+    @@index([end])
+}

@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
 import { APIPermissions } from '../classes/permissions';
 import { APICategories } from '../classes/categories';
 import { APISessions } from '../classes/sessions';
+import { APICalendar } from '../classes/calendar';
 import { APIMetrics } from '../classes/metrics';
 import { APIInvites } from '../classes/invites';
 import { APIGroups } from '../classes/groups';
@@ -16,6 +17,7 @@ import { transformDates } from './utils';
 export class BoardsManager {
 	readonly permissions = new APIPermissions(this);
 	readonly categories = new APICategories(this);
+	readonly calendar = new APICalendar(this);
 	readonly sessions = new APISessions(this);
 	readonly invites = new APIInvites(this);
 	readonly metrics = new APIMetrics(this);
