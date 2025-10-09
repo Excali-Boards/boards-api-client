@@ -71,7 +71,7 @@ export type EventObject = {
 };
 
 export type GetCalendarResponse = {
-	group: SingleOutput;
+	group: SingleOutput & { calendarCode: string | null; };
 	events: CalendarEvent[];
 };
 
