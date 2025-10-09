@@ -1,3 +1,4 @@
+import { SingleOutput } from 'src/external/types';
 import { BoardsManager } from '../core/manager';
 
 export class APICalendar {
@@ -40,57 +41,39 @@ export class APICalendar {
 
 // Input types
 export type CalendarFunctionsInput = {
-	'getCalendar': {
-		auth: string;
-		groupId: string;
-	};
-	'createEvent': {
-		auth: string;
-		groupId: string;
-		event: EventObject;
-	};
-	'updateEvent': {
-		auth: string;
-		groupId: string;
-		eventId: string;
-		event: Partial<EventObject>;
-	};
-	'deleteEvent': {
-		auth: string;
-		groupId: string;
-		eventId: string;
-	};
+	'getCalendar': { auth: string; groupId: string; };
+	'createEvent': { auth: string; groupId: string; event: EventObject; };
+	'updateEvent': { auth: string; groupId: string; eventId: string; event: Partial<EventObject>; };
+	'deleteEvent': { auth: string; groupId: string; eventId: string; };
 };
 
-// Schema types based on the server code
+// Types.
 export type EventObject = {
 	title: string;
 	start: Date;
 	end: Date;
-	description?: string;
 	color: string; // hex color
+	description?: string;
+	where?: string;
 };
 
 // Response types
 export type GetCalendarResponse = {
-	group: {
-		id: string;
-		name: string;
-		index: number;
-		accessLevel: string;
+	group: SingleOutput;
+	events: CalendarEvent[];
+};
+
+export type CalendarEvent = {
+	id: string;
+	title: string;
+	color: string;
+	description: string | null;
+	start: Date;
+	end: Date;
+	createdAt: Date;
+	updatedAt: Date;
+	createdBy: {
+		displayName: string;
+		avatarUrl: string | null;
 	};
-	events: {
-		id: string;
-		title: string;
-		color: string;
-		description: string | null;
-		start: Date;
-		end: Date;
-		createdAt: Date;
-		updatedAt: Date;
-		createdBy: {
-			displayName: string;
-			avatarUrl: string | null;
-		};
-	}[];
 };
