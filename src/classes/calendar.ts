@@ -12,7 +12,7 @@ export class APICalendar {
 	}
 
 	public async getHolidays({ auth, countryCode, year }: CalendarFunctionsInput['getHolidays']) {
-		return await this.web.request<HolidayEvent[]>({
+		return await this.web.request<FormattedHoliday[]>({
 			method: 'GET', auth,
 			endpoint: `/holidays/${countryCode}/${year}`,
 		});
