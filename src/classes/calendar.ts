@@ -55,7 +55,7 @@ export type CalendarFunctionsInput = {
 	'getCalendar': { auth: string; groupId: string; };
 	'getHolidays': { auth: string; countryCode: string; year: number; };
 	'createEvent': { auth: string; groupId: string; event: EventObject; };
-	'updateGroupCalendarCode': { auth: string; groupId: string; calCode: string; };
+	'updateGroupCalendarCode': { auth: string; groupId: string; calCode: string | null; };
 	'updateEvent': { auth: string; groupId: string; eventId: string; event: Partial<EventObject>; };
 	'deleteEvent': { auth: string; groupId: string; eventId: string; };
 };
