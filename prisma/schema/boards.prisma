@@ -5,7 +5,9 @@ model Group {
     name  String
     index Int
 
-    events      Event[]
+    calCode String
+    events  Event[]
+
     categories  Category[]
     permissions GroupPermission[]
 }

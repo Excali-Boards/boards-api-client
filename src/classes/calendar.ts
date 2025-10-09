@@ -18,10 +18,18 @@ export class APICalendar {
 		});
 	}
 
+	public async updateGroupCalendarCode({ auth, groupId, calCode }: CalendarFunctionsInput['updateGroupCalendarCode']) {
+		return await this.web.request<string>({
+			method: 'PATCH', auth,
+			endpoint: `/groups/${groupId}/calendar`,
+			body: { calCode },
+		});
+	}
+
 	public async createEvent({ auth, groupId, event }: CalendarFunctionsInput['createEvent']) {
 		return await this.web.request<string>({
 			method: 'POST', auth,
-			endpoint: `/ groups / ${groupId} / calendar`,
+			endpoint: `/groups/${groupId}/calendar`,
 			body: event,
 		});
 	}
@@ -29,7 +37,7 @@ export class APICalendar {
 	public async updateEvent({ auth, groupId, eventId, event }: CalendarFunctionsInput['updateEvent']) {
 		return await this.web.request<string>({
 			method: 'PATCH', auth,
-			endpoint: `/ groups / ${groupId} / calendar / ${eventId}`,
+			endpoint: `/groups/${groupId}/calendar/${eventId}`,
 			body: event,
 		});
 	}
@@ -37,7 +45,7 @@ export class APICalendar {
 	public async deleteEvent({ auth, groupId, eventId }: CalendarFunctionsInput['deleteEvent']) {
 		return await this.web.request<string>({
 			method: 'DELETE', auth,
-			endpoint: `/ groups / ${groupId} / calendar / ${eventId}`,
+			endpoint: `/groups/${groupId}/calendar/${eventId}`,
 		});
 	}
 }
@@ -47,6 +55,7 @@ export type CalendarFunctionsInput = {
 	'getCalendar': { auth: string; groupId: string; };
 	'getHolidays': { auth: string; countryCode: string; year: number; };
 	'createEvent': { auth: string; groupId: string; event: EventObject; };
+	'updateGroupCalendarCode': { auth: string; groupId: string; calCode: string; };
 	'updateEvent': { auth: string; groupId: string; eventId: string; event: Partial<EventObject>; };
 	'deleteEvent': { auth: string; groupId: string; eventId: string; };
 };
@@ -83,17 +92,6 @@ export type CalendarEvent = {
 };
 
 export type ClosedStatus = 'Public' | 'Bank' | 'School' | 'Authorities' | 'Optional' | 'Observance';
-
-export type HolidayEvent = {
-	date: string;
-	localName: string;
-	name: string;
-	countryCode: string;
-	global: boolean;
-	counties: string[] | null;
-	launchYear: number | null;
-	types: ClosedStatus[];
-};
 
 export type FormattedHoliday = {
 	id: string;
