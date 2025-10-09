@@ -68,6 +68,7 @@ export type CalendarEvent = {
 	title: string;
 	color: string;
 	description: string | null;
+	where: string | null;
 	start: Date;
 	end: Date;
 	createdAt: Date;
