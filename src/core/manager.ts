@@ -37,17 +37,29 @@ export class BoardsManager {
 
 		auth?: string;
 		headers?: Record<string, string> | null;
-		responseType?: ResponseType;
 	}): Promise<R extends false ? P extends true ? PaginatedWebResponse<O> : WebResponse<O> : AxiosResponse<O>> {
 		try {
 			axios.interceptors.response.use(transformDates);
 
+			let requestData: unknown;
+			let contentType: string | undefined;
+
+			if (data.body instanceof FormData) {
+				requestData = data.body;
+				contentType = undefined;
+			} else if (data.body !== undefined) {
+				requestData = JSON.stringify(data.body);
+				contentType = 'application/json';
+			} else {
+				requestData = undefined;
+				contentType = 'multipart/form-data';
+			}
+
 			const res = await axios(this.url + data.endpoint, {
 				method: data.method,
-				data: data.body ? JSON.stringify(data.body) : undefined,
-				responseType: data.responseType,
+				data: requestData,
 				headers: {
-					...(data.headers === null ? {} : { 'Content-Type': 'application/json' }),
+					...(data.headers === null ? {} : contentType ? { 'Content-Type': contentType } : {}),
 					...(data.auth ? { 'Authorization': data.auth } : {}),
 					...(data.headers || {}),
 				},

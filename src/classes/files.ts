@@ -22,7 +22,6 @@ export class APIFiles {
 			method: 'POST', auth,
 			endpoint: `/files/${boardId}/raw`,
 			body: formData,
-			headers: null,
 		});
 	}
 
