@@ -15,7 +15,7 @@ export class APIFiles {
 		const formData = new FormData();
 
 		for (const file of files) {
-			formData.append('files', file);
+			formData.append(`file-${file.clientId}`, file.file);
 		}
 
 		return await this.web.request<FileUploadResponse>({
@@ -38,7 +38,7 @@ export class APIFiles {
 // Input types
 export type FilesFunctionsInput = {
 	'uploadBase64Files': { auth: string; boardId: string; files: Base64FileInput; };
-	'uploadRawFiles': { auth: string; boardId: string; files: File[]; };
+	'uploadRawFiles': { auth: string; boardId: string; files: RawFileInput[]; };
 	'deleteFiles': { auth: string; boardId: string; fileIds: string[]; };
 };
 
@@ -48,11 +48,19 @@ export type Base64FileInput = {
 	mimeType: string;
 }[];
 
-export type RawFileUploadInput = {
-	boardId: string;
+export type RawFileInput = {
+	file: File;
+	clientId: string;
 };
 
 export type FileUploadResponse = {
 	success: number;
 	failed: number;
+	files: FileUrlMapping[];
+};
+
+export type FileUrlMapping = {
+	clientId: string;
+	serverId: string;
+	url: string;
 };
