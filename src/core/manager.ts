@@ -1,5 +1,5 @@
 import { PaginatedWebResponse, RequestMethod, WebResponse } from '../types';
-import axios, { AxiosError, AxiosResponse, ResponseType } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { APIPermissions } from '../classes/permissions';
 import { APICategories } from '../classes/categories';
 import { APISessions } from '../classes/sessions';
@@ -46,13 +46,13 @@ export class BoardsManager {
 
 			if (data.body instanceof FormData) {
 				requestData = data.body;
-				contentType = undefined;
+				contentType = 'multipart/form-data';
 			} else if (data.body !== undefined) {
 				requestData = JSON.stringify(data.body);
 				contentType = 'application/json';
 			} else {
 				requestData = undefined;
-				contentType = 'multipart/form-data';
+				contentType = undefined;
 			}
 
 			const res = await axios(this.url + data.endpoint, {
