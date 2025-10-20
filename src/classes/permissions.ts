@@ -1,5 +1,5 @@
 import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
-import { GrantedEntry, ResourceType } from '../external/types';
+import { PermUser, ResourceType } from '../external/types';
 import { BoardsManager } from '../core/manager';
 
 // Data.
@@ -8,9 +8,16 @@ export class APIPermissions {
 
 	// Methods.
 	public async viewPermissions({ auth, query }: PermissionsFunctionsInput['viewPermissions']) {
-		return await this.web.request<ViewPermissionsOutput>({
+		return await this.web.request<PermUser[]>({
 			method: 'GET', auth,
 			endpoint: this.web.qp('/permissions/view', query),
+		});
+	}
+
+	public async viewAllPermissions({ auth, userIds }: PermissionsFunctionsInput['viewAllPermissions']) {
+		return await this.web.request<Record<string, PermUser[]>>({
+			method: 'POST', auth, body: { userIds },
+			endpoint: this.web.qp('/permissions/view-all'),
 		});
 	}
 
@@ -32,6 +39,7 @@ export class APIPermissions {
 // Types.
 export type PermissionsFunctionsInput = {
 	'viewPermissions': { auth: string; query: ViewPermissionsQuery; };
+	'viewAllPermissions': { auth: string; userIds: string[]; };
 	'grantPermissions': { auth: string; body: GrantPermissionsInput; };
 	'revokePermissions': { auth: string; body: RevokePermissionsInput; };
 }
@@ -41,14 +49,6 @@ export type ViewPermissionsQuery = {
 	type: ResourceType;
 	id: string;
 };
-
-export type ViewPermissionsOutput = {
-	userId: string;
-	email: string;
-	displayName: string;
-	avatarUrl: string | null;
-	permissions: GrantedEntry[];
-}[];
 
 export type GrantPermissionsInput = {
 	userId: string;

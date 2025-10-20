@@ -28,6 +28,37 @@ export type AccessLevel = 'read' | 'write' | 'manage' | 'admin';
 export type ResourceType = 'group' | 'category' | 'board';
 export type GlobalResourceType = ResourceType | 'global';
 
+export type ResourceId<A extends GlobalResourceType> =
+	A extends 'board' ? { boardId: string; categoryId: string; groupId: string; } :
+	A extends 'category' ? { categoryId: string; groupId: string; } :
+	A extends 'group' ? { groupId: string; } :
+	A extends 'global' ? null :
+	never;
+
+export type ResourceReturnEnum<A extends GlobalResourceType> =
+	A extends 'board' ? BoardRole :
+	A extends 'category' ? CategoryRole :
+	A extends 'group' ? GroupRole :
+	A extends 'global' ? GlobalRole :
+	never;
+
+export type PermissionGrantResult = {
+	newPermissions: GrantedRoles;
+	updatedPermissions: (GrantedRole & { dbId: string })[];
+};
+
+export type PermissionCheckData<T extends ResourceType> = {
+	type: T; data: ResourceId<T>;
+};
+
+export type PermUser = {
+	email: string;
+	userId: string;
+	displayName: string;
+	avatarUrl: string | null;
+	permissions: GrantedEntry[];
+};
+
 export type GrantedRoles = GrantedRole[];
 export type GrantedRole = {
 	type: ResourceType;
