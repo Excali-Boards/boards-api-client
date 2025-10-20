@@ -15,7 +15,7 @@ export class APIPermissions {
 	}
 
 	public async viewAllPermissions({ auth, userIds }: PermissionsFunctionsInput['viewAllPermissions']) {
-		return await this.web.request<Record<string, PermUser[]>>({
+		return await this.web.request<Record<string, PermUser>>({
 			method: 'POST', auth, body: { userIds },
 			endpoint: this.web.qp('/permissions/view-all'),
 		});
