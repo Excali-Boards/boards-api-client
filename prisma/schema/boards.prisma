@@ -5,7 +5,7 @@ model Group {
     name  String
     index Int
 
-    calCode String
+    calCode String?
     events  Event[]
 
     categories  Category[]
@@ -42,6 +42,8 @@ model Board {
 
     categoryId String
     category   Category @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
+
+    flashcardDeck FlashcardDeck?
 
     files           File[]
     boardPermission BoardPermission[]

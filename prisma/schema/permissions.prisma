@@ -51,8 +51,8 @@ model Invite {
 
     code String @unique
 
-    // Allow invites to multiple groups, categories, or boards
-    // If multiple are specified, the invite grants access to all of them
+    // Allow invites to multiple groups, categories, or boards.
+    // If multiple are specified, the invite grants access to all of them.
     groupIds  String[]
     groupRole GroupRole?
 

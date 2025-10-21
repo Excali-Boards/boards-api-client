@@ -15,6 +15,8 @@ model User {
     categoryPermissions CategoryPermission[]
     boardPermissions    BoardPermission[]
 
+    flashcardProgress DeckProgress[]
+
     sessions       Session[]
     createdEvents  Event[]
     createdInvites Invite[]

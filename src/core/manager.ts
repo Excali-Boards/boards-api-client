@@ -1,6 +1,7 @@
 import { PaginatedWebResponse, RequestMethod, WebResponse } from '../types';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { APIPermissions } from '../classes/permissions';
+import { APIFlashcards } from '../classes/flashcards';
 import { APICategories } from '../classes/categories';
 import { APISessions } from '../classes/sessions';
 import { APICalendar } from '../classes/calendar';
@@ -17,6 +18,7 @@ import { transformDates } from './utils';
 export class BoardsManager {
 	readonly permissions = new APIPermissions(this);
 	readonly categories = new APICategories(this);
+	readonly flashcards = new APIFlashcards(this);
 	readonly calendar = new APICalendar(this);
 	readonly sessions = new APISessions(this);
 	readonly invites = new APIInvites(this);

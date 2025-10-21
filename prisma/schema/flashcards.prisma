@@ -1,0 +1,49 @@
+model FlashcardDeck {
+    dbId   String @id @default(uuid())
+    deckId String @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    boardId String @unique
+    board   Board  @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+
+    cards    FlashcardCard[]
+    progress DeckProgress[]
+
+    @@index([boardId])
+}
+
+model FlashcardCard {
+    dbId   String @id @default(uuid())
+    cardId String @unique
+
+    front String
+    back  String
+    index Int
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    deckId String
+    deck   FlashcardDeck @relation(fields: [deckId], references: [deckId], onDelete: Cascade)
+
+    @@index([deckId])
+}
+
+model DeckProgress {
+    dbId String @id @default(uuid())
+
+    deckId String
+    userId String
+
+    currentIndex Int      @default(0)
+    completed    Boolean  @default(false)
+    lastStudied  DateTime @default(now())
+
+    deck FlashcardDeck @relation(fields: [deckId], references: [deckId], onDelete: Cascade)
+    user User          @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    @@unique([deckId, userId])
+    @@index([userId])
+}

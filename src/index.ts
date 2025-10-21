@@ -6,6 +6,7 @@ export * from './external/vars';
 
 export * from './classes/permissions';
 export * from './classes/categories';
+export * from './classes/flashcards';
 export * from './classes/calendar';
 export * from './classes/sessions';
 export * from './classes/invites';
