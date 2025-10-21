@@ -13,6 +13,13 @@ export class APIFlashcards {
 		});
 	}
 
+	public async initializeDeck({ auth, groupId, categoryId, boardId }: FlashcardsFunctionsInput['initializeDeck']) {
+		return await this.web.request<string>({
+			method: 'POST', auth,
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/flashcards/initialize`),
+		});
+	}
+
 	public async createCards({ auth, groupId, categoryId, boardId, body }: FlashcardsFunctionsInput['createCards']) {
 		return await this.web.request<string>({
 			method: 'POST', auth, body,
@@ -66,6 +73,7 @@ export class APIFlashcards {
 // Types.
 export type FlashcardsFunctionsInput = {
 	getDeck: { auth: string; groupId: string; categoryId: string; boardId: string; };
+	initializeDeck: { auth: string; groupId: string; categoryId: string; boardId: string; };
 	createCards: { auth: string; groupId: string; categoryId: string; boardId: string; body: CardInput[]; };
 	updateCards: { auth: string; groupId: string; categoryId: string; boardId: string; body: CardUpdateInput[]; };
 	deleteCards: { auth: string; groupId: string; categoryId: string; boardId: string; body: string[]; };
