@@ -101,6 +101,7 @@ export type GetGroupOutput = {
 export type GetAllSortedOutput = (SingleOutput & {
 	categories: (SingleOutput & {
 		boards: (SingleOutput & {
+			hasFlashcards: boolean;
 			totalSizeBytes: number;
 			scheduledForDeletion: Date | null;
 		})[];
