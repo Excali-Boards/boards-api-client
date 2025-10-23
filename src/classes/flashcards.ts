@@ -1,4 +1,4 @@
-import { SingleOutput } from 'src/external/types';
+import { SingleOutput } from '../external/types';
 import { BoardsManager } from '../core/manager';
 
 // Data.
