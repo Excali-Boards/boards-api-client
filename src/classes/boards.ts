@@ -50,7 +50,7 @@ export class APIBoards {
 	public async kickUserFromRoom({ auth, categoryId, groupId, boardId, userId }: BoardsFunctionsInput['kickUserFromRoom']) {
 		return await this.web.request<string>({
 			method: 'POST', auth,
-			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`, {
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room-kick`, {
 				userId,
 			}),
 		});
