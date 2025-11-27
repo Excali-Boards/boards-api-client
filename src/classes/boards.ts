@@ -33,6 +33,13 @@ export class APIBoards {
 		});
 	}
 
+	public async forceDeleteBoard({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['scheduleBoardDeletion']) {
+		return await this.web.request<string>({
+			method: 'DELETE', auth,
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}?force=true`),
+		});
+	}
+
 	public async cancelBoardDeletion({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['cancelBoardDeletion']) {
 		return await this.web.request<string>({
 			method: 'POST', auth,
