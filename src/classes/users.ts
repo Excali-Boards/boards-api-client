@@ -7,33 +7,33 @@ export class APIUsers {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async getCurrentUser({ auth }: UsersFunctionsInput['getCurrentUser']) {
+	public async getUser({ auth, userId }: UsersFunctionsInput['getCurrentUser']) {
 		return await this.web.request<GetUsersOutput>({
 			method: 'GET', auth,
-			endpoint: this.web.qp('/users'),
+			endpoint: this.web.qp('/users' + (userId ? `/${userId}` : '')),
 		});
 	}
 
-	public async updateUser({ auth, body }: UsersFunctionsInput['updateUser']) {
+	public async updateUser({ auth, userId, body }: UsersFunctionsInput['updateUser']) {
 		return await this.web.request<string>({
 			method: 'PATCH', auth, body,
-			endpoint: this.web.qp('/users'),
+			endpoint: this.web.qp('/users' + (userId ? `/${userId}` : '')),
 		});
 	}
 
-	public async deleteAccount({ auth }: UsersFunctionsInput['deleteAccount']) {
+	public async deleteAccount({ auth, userId }: UsersFunctionsInput['deleteAccount']) {
 		return await this.web.request<void>({
 			method: 'DELETE', auth,
-			endpoint: this.web.qp('/users'),
+			endpoint: this.web.qp('/users' + (userId ? `/${userId}` : '')),
 		});
 	}
 }
 
 // Types.
 export type UsersFunctionsInput = {
-	'getCurrentUser': { auth: string; };
-	'updateUser': { auth: string; body: UserInput; };
-	'deleteAccount': { auth: string; };
+	'getCurrentUser': { auth: string; userId?: string; };
+	'updateUser': { auth: string; userId?: string; body: UserInput; };
+	'deleteAccount': { auth: string; userId?: string; };
 	'isCurrentUserDev': { auth: string; };
 }
 
