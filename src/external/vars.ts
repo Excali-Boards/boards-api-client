@@ -3,12 +3,14 @@ import { GlobalRole, UserRole } from './types';
 
 export const DBUserSelectArgs = {
 	select: {
-		userId: true,
 		email: true,
+		userId: true,
+		invitedBy: true,
 		avatarUrl: true,
+		mainGroupId: true,
 		displayName: true,
 		mainLoginType: true,
-		mainGroupId: true,
+		registrationMethod: true,
 		groupPermissions: { select: { groupId: true, role: true } },
 		categoryPermissions: { select: { categoryId: true, role: true } },
 		boardPermissions: { select: { boardId: true, role: true } },

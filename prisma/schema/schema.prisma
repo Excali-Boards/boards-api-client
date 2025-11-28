@@ -51,6 +51,12 @@ enum GroupRole {
     GroupAdmin // GroupManager + user/invite management
 }
 
+enum RegistrationMethod {
+    direct
+    invite
+    oauth
+}
+
 model AllEnumsModel {
     dbId String @id @default(uuid())
 
@@ -61,4 +67,6 @@ model AllEnumsModel {
     boardRoleEnum    BoardRole
     categoryRoleEnum CategoryRole
     groupRoleEnum    GroupRole
+
+    registrationMethodEnum RegistrationMethod
 }
