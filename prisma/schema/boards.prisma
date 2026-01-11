@@ -43,7 +43,8 @@ model Board {
     categoryId String
     category   Category @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
 
-    flashcardDeck FlashcardDeck?
+    flashcardDeck         FlashcardDeck?
+    codeSnippetCollection CodeSnippetCollection?
 
     files           File[]
     boardPermission BoardPermission[]

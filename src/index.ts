@@ -4,6 +4,10 @@ export * from './types';
 export * from './external/types';
 export * from './external/vars';
 
+export * from './websocket/manager';
+export * from './websocket/client';
+export * from './websocket/types';
+
 export * from './classes/permissions';
 export * from './classes/categories';
 export * from './classes/flashcards';

@@ -1,88 +1,59 @@
 # 🧰 boards-api-client
 
-A TypeScript client library for interacting with the [Boards Room API](https://github.com/Excali-Boards), the backend behind the collaborative whiteboarding platform. This SDK simplifies API integration for developers building apps on top of Boards infrastructure.
+A comprehensive TypeScript client library for the [Boards Room API](https://github.com/Excali-Boards), featuring both REST API and WebSocket support. Build real-time collaborative applications with ease.
 
 ---
 
-## 🚀 Features
+## Features
 
-* Fully typed API wrapper for the Boards backend
-* CRUD support for:
+- Fully typed REST client (boards, users, permissions, files, sessions, categories, flashcards, metrics, invites)
+- WebSocket client with auto-reconnect, heartbeat, and message queueing
+- React hooks: generic `useWebSocket` and `useExecutor` for code execution streams
+- Zero-config defaults; override `baseUrl` when needed
 
-  * 🏢 Groups and 📂 Categories
-  * 📝 Boards and 🖼️ Rooms
-  * 👤 Users and 🔐 Permissions
-* Real-time room metadata access and user management
-* OAuth-based authentication support
-* Utility endpoints for resolving board references and cleanup
-* Built-in Axios request handler with date transformation
-
----
-
-## 📦 Installation
+## Installation
 
 ```bash
-npm install boards-api-client
+pnpm add @excali-boards/boards-api-client
 # or
-pnpm add boards-api-client
+npm install @excali-boards/boards-api-client
 ```
 
----
+## Quick start
 
-## ✨ Usage
-
-### Initialize the client
+### REST
 
 ```ts
-import { BoardsManager } from 'boards-api-client';
+import { BoardsManager } from "@excali-boards/boards-api-client";
 
-const client = new BoardsManager('https://your-api-url.com');
+const api = new BoardsManager("https://api.example.com");
+const boards = await api.boards.list();
 ```
 
-### Access a module
+### WebSocket (generic)
 
 ```ts
-const authToken = 'Bearer YOUR_TOKEN_HERE';
+import { createConnection } from "@excali-boards/boards-api-client";
 
-const groups = await client.groups.getGroups({ auth: authToken });
-console.log(groups);
+const ws = createConnection("/executor", { baseUrl: "localhost:3000" });
+await ws.connect();
+ws.send(1, { code: "print(42)", language: "python" });
+ws.on(3, (data) => console.log("output:", data.output));
 ```
 
-### Common endpoints
+### React hook (executor)
 
-* `client.auth.authenticate(...)` — Login a user
-* `client.groups.getAllSorted(...)` — Fetch full hierarchy
-* `client.boards.getBoard(...)` — Fetch single board info
-* `client.admin.updateUserPermissions(...)` — Update admin permissions
-* `client.stats.globalStats(...)` — Fetch global app statistics
-* `client.utils.resolveBoard(...)` — Resolve board ID by name
+```tsx
+import { useExecutor } from "@excali-boards/boards-api-client";
 
----
-
-## 🧪 Example
-
-```ts
-const data = await client.boards.getBoard({
-  auth: token,
-  groupId: 'grp123',
-  categoryId: 'cat456',
-  boardId: 'brd789'
-});
-
-console.log(data.board.name);
+const { isConnected, startSession, sendInput, outputs } = useExecutor();
 ```
 
----
+## Integrations
 
-## 🛠️ Development
-
-Clone the repo and install dependencies:
-
-```bash
-git clone https://github.com/Excali-Boards/boards-api-client.git
-cd boards-api-client
-pnpm install
-```
+- React/Next: `useWebSocket`, `useExecutor`
+- Node/SSR: `createConnection` without React
+- TypeScript-first: message payloads and REST responses are typed
 
 ---
 
