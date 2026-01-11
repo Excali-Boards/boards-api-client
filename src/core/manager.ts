@@ -1,4 +1,5 @@
 import { PaginatedWebResponse, RequestMethod, WebResponse } from '../types';
+import { APICodeSnippets } from '../classes/codesnippets';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { APIPermissions } from '../classes/permissions';
 import { APIFlashcards } from '../classes/flashcards';
@@ -16,6 +17,7 @@ import { APIAdmin } from '../classes/admin';
 import { transformDates } from './utils';
 
 export class BoardsManager {
+	readonly codeSnippets = new APICodeSnippets(this);
 	readonly permissions = new APIPermissions(this);
 	readonly categories = new APICategories(this);
 	readonly flashcards = new APIFlashcards(this);

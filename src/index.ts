@@ -8,6 +8,7 @@ export * from './websocket/manager';
 export * from './websocket/client';
 export * from './websocket/types';
 
+export * from './classes/codesnippets';
 export * from './classes/permissions';
 export * from './classes/categories';
 export * from './classes/flashcards';

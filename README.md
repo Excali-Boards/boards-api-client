@@ -6,7 +6,7 @@ A comprehensive TypeScript client library for the [Boards Room API](https://gith
 
 ## Features
 
-- Fully typed REST client (boards, users, permissions, files, sessions, categories, flashcards, metrics, invites)
+- Fully typed REST client (boards, users, permissions, files, sessions, categories, flashcards, codesnippets, metrics, invites)
 - WebSocket client with auto-reconnect, heartbeat, and message queueing
 - React hooks: generic `useWebSocket` and `useExecutor` for code execution streams
 - Zero-config defaults; override `baseUrl` when needed
