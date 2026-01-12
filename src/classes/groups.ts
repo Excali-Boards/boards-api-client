@@ -102,6 +102,7 @@ export type GetAllSortedOutput = (SingleOutput & {
 	categories: (SingleOutput & {
 		boards: (SingleOutput & {
 			hasFlashcards: boolean;
+			hasCodeSnippets: boolean;
 			totalSizeBytes: number;
 			scheduledForDeletion: Date | null;
 		})[];

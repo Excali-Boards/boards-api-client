@@ -83,6 +83,7 @@ export type GetBoardOutput = {
 		type: BoardType;
 		dataUrl: string;
 		hasFlashcards: boolean;
+		hasCodeSnippets: boolean;
 		totalSizeBytes: number;
 		accessLevel: AccessLevel;
 		scheduledForDeletion: Date | null;
