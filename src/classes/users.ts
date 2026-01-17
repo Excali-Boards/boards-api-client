@@ -21,10 +21,10 @@ export class APIUsers {
 		});
 	}
 
-	public async deleteAccount({ auth, userId, deleteAllData }: UsersFunctionsInput['deleteAccount']) {
+	public async deleteAccount({ auth, userId }: UsersFunctionsInput['deleteAccount']) {
 		return await this.web.request<void>({
 			method: 'DELETE', auth,
-			endpoint: this.web.qp('/users' + (userId ? `/${userId}` : ''), deleteAllData !== undefined ? { deleteAllData } : undefined),
+			endpoint: this.web.qp('/users' + (userId ? `/${userId}` : '')),
 		});
 	}
 }
@@ -33,7 +33,7 @@ export class APIUsers {
 export type UsersFunctionsInput = {
 	'getCurrentUser': { auth: string; userId?: string; };
 	'updateUser': { auth: string; userId?: string; body: UserInput; };
-	'deleteAccount': { auth: string; userId?: string; deleteAllData?: boolean; };
+	'deleteAccount': { auth: string; userId?: string; };
 	'isCurrentUserDev': { auth: string; };
 }
 
