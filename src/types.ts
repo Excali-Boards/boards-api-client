@@ -1,5 +1,5 @@
 export type StatusWebCode = 200 | 400 | 401 | 403 | 404 | 413 | 429 | 500 | 503;
-export type WebResponse<T, S extends StatusWebCode> =
+export type WebResponse<T, S extends StatusWebCode = StatusWebCode> =
 	S extends 200 ? {
 		status: S;
 		data: T;
@@ -27,7 +27,7 @@ export type SuccessWithId<T extends string> = {
 };
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-export type CancelOutWebResponses<T extends WebResponse<unknown, StatusWebCode>> = T extends { status: 200, data: infer U } ? U : never;
+export type CancelOutWebResponses<T extends WebResponse<unknown>> = T extends { status: 200, data: infer U } ? U : never;
 
 export type InferPartial<T> = T extends DeepPartial<infer U> ? U : T;
 

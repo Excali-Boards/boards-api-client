@@ -1,4 +1,4 @@
-import { Paginated, PaginatedWebResponse, StatusWebCode, WebResponse } from '../types';
+import { Paginated, PaginatedWebResponse, WebResponse } from '../types';
 import { AxiosResponse } from 'axios';
 
 export function isDateStringRegex(value: unknown): value is string {
@@ -23,7 +23,7 @@ export function transformDates<T>(response: AxiosResponse<T>): AxiosResponse<T> 
 	return response;
 }
 
-export async function getAll<T>(fetcher: (page: number, limit: number) => Promise<WebResponse<Paginated<T>, StatusWebCode>>, options?: { limit?: number; maxItems?: number }): Promise<PaginatedWebResponse<T>> {
+export async function getAll<T>(fetcher: (page: number, limit: number) => Promise<WebResponse<Paginated<T>>>, options?: { limit?: number; maxItems?: number }): Promise<PaginatedWebResponse<T>> {
 	const limit = options?.limit ?? 50;
 	const maxItems = options?.maxItems ?? Infinity;
 	const allItems: T[] = [];
