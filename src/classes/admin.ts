@@ -9,7 +9,7 @@ export class APIAdmin {
 
 	// Methods.
 	public async getUsers({ auth, page, limit }: AdminFunctionsInput['getUsers']) {
-		return await this.web.request<Paginated<GetUsersOutput[]>>({
+		return await this.web.request<Paginated<GetUsersOutput>>({
 			method: 'GET', auth,
 			endpoint: this.web.qp('/admin/users', { page, limit }),
 		});
