@@ -5,7 +5,7 @@ export type WebResponse<T, S extends StatusWebCode = StatusWebCode> =
 		data: T;
 	} : {
 		status: S;
-		error: string;
+		error: string | string[];
 	};
 
 export type Paginated<T> = {
