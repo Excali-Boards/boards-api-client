@@ -1,6 +1,5 @@
-import { PaginatedWebResponse, RequestMethod, WebResponse } from '../types';
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import { APIPermissions } from '../classes/permissions';
+import { RequestMethod, WebResponse } from '../types';
 import { APIFlashcards } from '../classes/flashcards';
 import { APICategories } from '../classes/categories';
 import { APISessions } from '../classes/sessions';
@@ -13,6 +12,7 @@ import { APIUtils } from '../classes/utils';
 import { APIUsers } from '../classes/users';
 import { APIFiles } from '../classes/files';
 import { APIAdmin } from '../classes/admin';
+import axios, { AxiosError } from 'axios';
 import { transformDates } from './utils';
 
 export class BoardsManager {
@@ -32,14 +32,14 @@ export class BoardsManager {
 
 	constructor (public url: string) { }
 
-	public async request<O, T = unknown, R extends boolean = false, P extends boolean = false>(data: {
+	public async request<O, T = unknown>(data: {
 		endpoint: string;
 		method: RequestMethod;
 		body?: T;
 
 		auth?: string;
 		headers?: Record<string, string> | null;
-	}): Promise<R extends false ? P extends true ? PaginatedWebResponse<O> : WebResponse<O> : AxiosResponse<O>> {
+	}): Promise<WebResponse<O>> {
 		try {
 			axios.interceptors.response.use(transformDates);
 
@@ -73,12 +73,12 @@ export class BoardsManager {
 				throw new Error('Invalid response received.');
 			}
 
-			return res as R extends false ? P extends true ? PaginatedWebResponse<O> : WebResponse<O> : AxiosResponse<O>;
+			return res as WebResponse<O>;
 		} catch {
 			return {
 				status: 500,
 				error: 'An error occurred while processing the request.',
-			} as R extends false ? P extends true ? PaginatedWebResponse<O> : WebResponse<O> : AxiosResponse<O>;
+			} as WebResponse<O>;
 		}
 	}
 

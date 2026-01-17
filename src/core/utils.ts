@@ -1,4 +1,4 @@
-import { Paginated, WebResponse } from '../types';
+import { Paginated, PaginatedWebResponse, StatusWebCode, WebResponse } from '../types';
 import { AxiosResponse } from 'axios';
 
 export function isDateStringRegex(value: unknown): value is string {
@@ -23,7 +23,7 @@ export function transformDates<T>(response: AxiosResponse<T>): AxiosResponse<T> 
 	return response;
 }
 
-export async function getAll<T>(fetcher: (page: number, limit: number) => Promise<WebResponse<Paginated<T>>>, options?: { limit?: number; maxItems?: number }): Promise<T[]> {
+export async function getAll<T>(fetcher: (page: number, limit: number) => Promise<WebResponse<Paginated<T>, StatusWebCode>>, options?: { limit?: number; maxItems?: number }): Promise<PaginatedWebResponse<T>> {
 	const limit = options?.limit ?? 50;
 	const maxItems = options?.maxItems ?? Infinity;
 	const allItems: T[] = [];
@@ -33,7 +33,10 @@ export async function getAll<T>(fetcher: (page: number, limit: number) => Promis
 
 	while (hasMore && allItems.length < maxItems) {
 		const response = await fetcher(page, limit);
-		if (response.status !== 200) throw new Error(typeof response.error === 'string' ? response.error : 'Failed to fetch paginated data');
+		if (response.status !== 200) return {
+			status: response.status,
+			error: response.error || 'An error occurred while fetching items.',
+		};
 
 		const items = Array.isArray(response.data.data) ? response.data.data as T[] : [response.data.data] as T[];
 
@@ -42,5 +45,16 @@ export async function getAll<T>(fetcher: (page: number, limit: number) => Promis
 		page++;
 	}
 
-	return allItems;
+	return {
+		status: 200,
+		data: {
+			data: allItems as (T extends (infer U)[] ? U[] : T[]),
+			pagination: {
+				page: Math.ceil(allItems.length / limit),
+				limit,
+				total: allItems.length,
+				hasMore: allItems.length >= maxItems ? false : hasMore,
+			},
+		},
+	};
 }

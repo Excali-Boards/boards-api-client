@@ -1,14 +1,15 @@
-export type WebResponse<T> = {
-	status: 200;
-	data: T;
-} | {
-	status: 400 | 401 | 403 | 404 | 500 | 503;
-	error: unknown;
-	errorName?: string;
-}
+export type StatusWebCode = 200 | 400 | 401 | 403 | 404 | 413 | 429 | 500 | 503;
+export type WebResponse<T, S extends StatusWebCode> =
+	S extends 200 ? {
+		status: S;
+		data: T;
+	} : {
+		status: S;
+		error: string;
+	};
 
 export type Paginated<T> = {
-	data: T extends Array<infer U> ? U[] : T[];
+	data: T extends (infer U)[] ? U[] : T[];
 	pagination: {
 		page: number;
 		limit: number;
@@ -17,7 +18,7 @@ export type Paginated<T> = {
 	};
 };
 
-export type PaginatedWebResponse<T> = WebResponse<Paginated<T>>;
+export type PaginatedWebResponse<T, S extends StatusWebCode = StatusWebCode> = WebResponse<Paginated<T>, S>;
 
 export type SuccessWithId<T extends string> = {
 	[x in T]: string;
@@ -26,7 +27,7 @@ export type SuccessWithId<T extends string> = {
 };
 
 export type RequestMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-export type CancelOutWebResponses<T extends WebResponse<unknown>> = T extends { status: 200, data: infer U } ? U : never;
+export type CancelOutWebResponses<T extends WebResponse<unknown, StatusWebCode>> = T extends { status: 200, data: infer U } ? U : never;
 
 export type InferPartial<T> = T extends DeepPartial<infer U> ? U : T;
 
