@@ -7,14 +7,17 @@ export type WebResponse<T> = {
 	errorName?: string;
 }
 
-export type PaginatedWebResponse<T> = WebResponse<{
+export type Paginated<T> = {
 	data: T extends Array<infer U> ? U[] : T[];
 	pagination: {
 		page: number;
-		pageSize: number;
+		limit: number;
+		total: number;
 		hasMore: boolean;
 	};
-}>;
+};
+
+export type PaginatedWebResponse<T> = WebResponse<Paginated<T>>;
 
 export type SuccessWithId<T extends string> = {
 	[x in T]: string;

@@ -1,4 +1,5 @@
 export * from './core/manager';
+export * from './core/utils';
 export * from './types';
 
 export * from './external/types';
