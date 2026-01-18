@@ -1,19 +1,5 @@
-import { TSPrisma, BoardType } from '../../prisma/generated/default';
 import { BoardRole, CategoryRole, GroupRole } from './vars';
-
-// Structures.
-export type User = TSPrisma.TSPrismaModelsFull['User'];
-export type Group = TSPrisma.TSPrismaModelsFull['Group'];
-export type Category = TSPrisma.TSPrismaModelsFull['Category'];
-export type Board = TSPrisma.TSPrismaModelsFull['Board'];
-export type File = TSPrisma.TSPrismaModelsFull['File'];
-export type LoginMethod = TSPrisma.TSPrismaModelsFull['LoginMethod'];
-
-// Permission models
-export type GroupPermission = TSPrisma.TSPrismaModelsFull['GroupPermission'];
-export type CategoryPermission = TSPrisma.TSPrismaModelsFull['CategoryPermission'];
-export type BoardPermission = TSPrisma.TSPrismaModelsFull['BoardPermission'];
-export type Invite = TSPrisma.TSPrismaModelsFull['Invite'];
+import { BoardType } from '../../prisma/generated/default';
 
 // Permission roles.
 export type UserRole = BoardRole | CategoryRole | GroupRole | GlobalRole;

@@ -2,6 +2,7 @@ import { APIPermissions } from '../classes/permissions';
 import { RequestMethod, WebResponse } from '../types';
 import { APIFlashcards } from '../classes/flashcards';
 import { APICategories } from '../classes/categories';
+import { APIAnalytics } from '../classes/analytics';
 import { APISessions } from '../classes/sessions';
 import { APICalendar } from '../classes/calendar';
 import { APIMetrics } from '../classes/metrics';
@@ -19,6 +20,7 @@ export class BoardsManager {
 	readonly permissions = new APIPermissions(this);
 	readonly categories = new APICategories(this);
 	readonly flashcards = new APIFlashcards(this);
+	readonly analytics = new APIAnalytics(this);
 	readonly calendar = new APICalendar(this);
 	readonly sessions = new APISessions(this);
 	readonly invites = new APIInvites(this);

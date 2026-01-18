@@ -47,6 +47,33 @@ model Board {
 
     files           File[]
     boardPermission BoardPermission[]
+    userActivities  UserBoardActivity[]
+
+    @@index([categoryId])
+    @@index([index])
+}
+
+model UserBoardActivity {
+    dbId String @id @default(uuid())
+
+    userId String
+    user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+    boardId String
+    board   Board  @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+
+    totalSessions      Int @default(0)
+    totalActiveSeconds Int @default(0)
+
+    totalActions   Int      @default(0)
+    lastActivityAt DateTime @default(now())
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([userId, boardId])
+    @@index([boardId])
+    @@index([lastActivityAt])
 }
 
 model File {
@@ -59,4 +86,6 @@ model File {
 
     boardId String
     board   Board  @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+
+    @@index([boardId])
 }

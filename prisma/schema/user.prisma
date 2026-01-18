@@ -10,7 +10,7 @@ model User {
 
     mainLoginType Platforms
     loginMethods  LoginMethod[]
-    
+
     invitedBy          String?
     registrationMethod RegistrationMethod @default(direct)
 
@@ -20,9 +20,10 @@ model User {
 
     flashcardProgress DeckProgress[]
 
-    sessions       Session[]
-    createdEvents  Event[]
-    createdInvites Invite[]
+    sessions        Session[]
+    createdEvents   Event[]
+    createdInvites  Invite[]
+    boardActivities UserBoardActivity[]
 }
 
 model Session {
