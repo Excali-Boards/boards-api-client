@@ -46,7 +46,6 @@ export type AnalyticsFunctionsInput = {
 export type ActivityAnalytics = {
 	totalSessions: number;
 	totalActiveSeconds: number;
-	totalActions: number;
 	lastActivityAt: Date;
 };
 
