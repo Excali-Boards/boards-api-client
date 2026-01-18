@@ -20,14 +20,14 @@ export class APIAnalytics {
 	}
 
 	public async getCategoryAnalytics({ auth, categoryId, groupId }: AnalyticsFunctionsInput['getCategoryAnalytics']) {
-		return await this.web.request<UserBoardActivityWithUserAndBoard[]>({
+		return await this.web.request<UserBoardActivityWithUser[]>({
 			method: 'GET', auth,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/analytics`),
 		});
 	}
 
 	public async getGroupAnalytics({ auth, groupId }: AnalyticsFunctionsInput['getGroupAnalytics']) {
-		return await this.web.request<UserBoardActivityWithUserAndBoard[]>({
+		return await this.web.request<UserBoardActivityWithUser[]>({
 			method: 'GET', auth,
 			endpoint: this.web.qp(`/groups/${groupId}/analytics`),
 		});
@@ -49,30 +49,30 @@ export type ActivityAnalytics = {
 	lastActivityAt: Date;
 };
 
-export type UserBoardActivityWithBoard = ActivityAnalytics & {
-	board: {
+export type BoardData = {
+	name: string;
+	boardId: string;
+
+	category: {
+		categoryId: string;
 		name: string;
-		boardId: string;
+
+		group: {
+			groupId: string;
+			name: string;
+		};
 	};
+};
+
+export type UserBoardActivityWithBoard = ActivityAnalytics & {
+	board: BoardData;
 };
 
 export type UserBoardActivityWithUser = ActivityAnalytics & {
+	board: BoardData
 	user: {
 		userId: string;
 		displayName: string;
 		avatarUrl: string | null;
-	};
-};
-
-export type UserBoardActivityWithUserAndBoard = ActivityAnalytics & {
-	user: {
-		userId: string;
-		displayName: string;
-		avatarUrl: string | null;
-	};
-	board: {
-		name: string;
-		boardId: string;
-		categoryId: string;
 	};
 };
