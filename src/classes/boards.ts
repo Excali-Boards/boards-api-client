@@ -1,62 +1,63 @@
 import { AccessLevel, AllRooms, NameInput, SingleOutput } from '../external/types';
 import { BoardType } from '../../prisma/generated/default';
 import { BoardsManager } from '../core/manager';
+import { WithHeaders } from '../types';
 
 export class APIBoards {
 	constructor (private web: BoardsManager) { }
 
-	public async getBoards({ auth, categoryId, groupId }: BoardsFunctionsInput['getBoards']) {
+	public async getBoards({ auth, categoryId, groupId, ...rest }: BoardsFunctionsInput['getBoards']) {
 		return await this.web.request<GetBoardOutput[]>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}`),
 		});
 	}
 
-	public async getBoard({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getBoard']) {
+	public async getBoard({ auth, categoryId, groupId, boardId, ...rest }: BoardsFunctionsInput['getBoard']) {
 		return await this.web.request<GetBoardOutput>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
-	public async updateBoard({ auth, categoryId, groupId, boardId, body }: BoardsFunctionsInput['updateBoard']) {
+	public async updateBoard({ auth, categoryId, groupId, boardId, body, ...rest }: BoardsFunctionsInput['updateBoard']) {
 		return await this.web.request<string>({
-			method: 'PATCH', auth, body,
+			method: 'PATCH', auth, body, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
-	public async scheduleBoardDeletion({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['scheduleBoardDeletion']) {
+	public async scheduleBoardDeletion({ auth, categoryId, groupId, boardId, ...rest }: BoardsFunctionsInput['scheduleBoardDeletion']) {
 		return await this.web.request<string>({
-			method: 'DELETE', auth,
+			method: 'DELETE', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}`),
 		});
 	}
 
-	public async forceDeleteBoard({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['scheduleBoardDeletion']) {
+	public async forceDeleteBoard({ auth, categoryId, groupId, boardId, ...rest }: BoardsFunctionsInput['scheduleBoardDeletion']) {
 		return await this.web.request<string>({
-			method: 'DELETE', auth,
+			method: 'DELETE', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}?force=true`),
 		});
 	}
 
-	public async cancelBoardDeletion({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['cancelBoardDeletion']) {
+	public async cancelBoardDeletion({ auth, categoryId, groupId, boardId, ...rest }: BoardsFunctionsInput['cancelBoardDeletion']) {
 		return await this.web.request<string>({
-			method: 'POST', auth,
+			method: 'POST', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/cancel-deletion`),
 		});
 	}
 
-	public async getBoardRoomData({ auth, categoryId, groupId, boardId }: BoardsFunctionsInput['getRoomData']) {
+	public async getBoardRoomData({ auth, categoryId, groupId, boardId, ...rest }: BoardsFunctionsInput['getRoomData']) {
 		return await this.web.request<AllRooms>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room`),
 		});
 	}
 
-	public async kickUserFromRoom({ auth, categoryId, groupId, boardId, userId }: BoardsFunctionsInput['kickUserFromRoom']) {
+	public async kickUserFromRoom({ auth, categoryId, groupId, boardId, userId, ...rest }: BoardsFunctionsInput['kickUserFromRoom']) {
 		return await this.web.request<string>({
-			method: 'POST', auth,
+			method: 'POST', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/room-kick`, {
 				userId,
 			}),
@@ -64,8 +65,8 @@ export class APIBoards {
 	}
 }
 
-// Input types
-export type BoardsFunctionsInput = {
+// Input types.
+export type BoardsFunctionsInput = WithHeaders<{
 	'getBoards': { auth: string; categoryId: string; groupId: string; };
 	'getBoard': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'updateBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: NameInput; };
@@ -73,7 +74,7 @@ export type BoardsFunctionsInput = {
 	'cancelBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'getRoomData': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'kickUserFromRoom': { auth: string; categoryId: string; groupId: string; boardId: string; userId: string; };
-};
+}>;
 
 // Output types
 export type GetBoardOutput = {

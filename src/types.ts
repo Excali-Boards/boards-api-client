@@ -18,6 +18,10 @@ export type Paginated<T> = {
 	};
 };
 
+export type WithHeaders<T> = {
+	[P in keyof T]: T[P] & { headers?: Record<string, string>; };
+};
+
 export type PaginatedWebResponse<T, S extends StatusWebCode = StatusWebCode> = WebResponse<Paginated<T>, S>;
 
 export type SuccessWithId<T extends string> = {
@@ -33,7 +37,7 @@ export type InferPartial<T> = T extends DeepPartial<infer U> ? U : T;
 
 export type Simplify<T> = {
 	[P in keyof T]: T[P];
-}
+};
 
 export type Primitive = string | number | boolean | bigint | symbol | null | undefined | Date;
 

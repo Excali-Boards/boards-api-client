@@ -1,47 +1,48 @@
 import { Device, Platforms } from '../../prisma/generated/default';
 import { BoardsManager } from '../core/manager';
+import { WithHeaders } from '../types';
 
 // Data.
 export class APISessions {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async createSession({ auth, body }: SessionsFunctionsInput['createSession']) {
+	public async createSession({ auth, body, ...rest }: SessionsFunctionsInput['createSession']) {
 		return await this.web.request<CreateSessionOutput>({
-			method: 'POST', auth, body,
+			method: 'POST', auth, body, ...rest,
 			endpoint: this.web.qp('/sessions'),
 		});
 	}
 
-	public async getAllSessions({ auth }: SessionsFunctionsInput['getAllSessions']) {
+	public async getAllSessions({ auth, ...rest }: SessionsFunctionsInput['getAllSessions']) {
 		return await this.web.request<SessionsOutput>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/sessions'),
 		});
 	}
 
-	public async deleteSession({ auth, dbId }: SessionsFunctionsInput['deleteSession']) {
+	public async deleteSession({ auth, dbId, ...rest }: SessionsFunctionsInput['deleteSession']) {
 		return await this.web.request<string>({
-			method: 'DELETE', auth, body: { dbId },
+			method: 'DELETE', auth, body: { dbId }, ...rest,
 			endpoint: this.web.qp('/sessions'),
 		});
 	}
 
-	public async deleteAllSessions({ auth }: SessionsFunctionsInput['deleteAllSessions']) {
+	public async deleteAllSessions({ auth, ...rest }: SessionsFunctionsInput['deleteAllSessions']) {
 		return await this.web.request<string>({
-			method: 'DELETE', auth,
+			method: 'DELETE', auth, ...rest,
 			endpoint: this.web.qp('/sessions/all'),
 		});
 	}
 }
 
 // Types.
-export type SessionsFunctionsInput = {
-	'createSession': { auth: string; body: CreateSessionInput; };
-	'getAllSessions': { auth: string; };
-	'deleteSession': { auth: string; dbId: string; };
-	'deleteAllSessions': { auth: string; };
-}
+export type SessionsFunctionsInput = WithHeaders<{
+	'createSession': { auth: string; body: CreateSessionInput };
+	'getAllSessions': { auth: string };
+	'deleteSession': { auth: string; dbId: string };
+	'deleteAllSessions': { auth: string };
+}>
 
 // External.
 export type CreateSessionInput = {

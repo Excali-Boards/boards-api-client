@@ -1,30 +1,31 @@
 import { BoardsManager } from '../core/manager';
+import { WithHeaders } from '../types';
 
 // Data.
 export class APIMetrics {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async getMetrics({ auth }: MetricsFunctionsInput['getMetrics']) {
+	public async getMetrics({ auth, ...rest }: MetricsFunctionsInput['getMetrics']) {
 		return await this.web.request<string>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/metrics'),
 		});
 	}
 
-	public async getStatus({ auth }: MetricsFunctionsInput['getStatus']) {
+	public async getStatus({ auth, ...rest }: MetricsFunctionsInput['getStatus']) {
 		return await this.web.request<SystemStatus>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/metrics/status'),
 		});
 	}
 }
 
 // Types.
-export type MetricsFunctionsInput = {
-	'getMetrics': { auth: string; };
-	'getStatus': { auth: string; };
-}
+export type MetricsFunctionsInput = WithHeaders<{
+	'getMetrics': { auth: string };
+	'getStatus': { auth: string };
+}>
 
 // External.
 export type SystemStatus = {

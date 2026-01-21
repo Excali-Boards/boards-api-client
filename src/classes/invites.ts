@@ -2,72 +2,73 @@ import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
 import { GrantedRoles, ResourceType } from '../external/types';
 import { Invite } from '../../prisma/generated';
 import { BoardsManager } from '../core/manager';
+import { WithHeaders } from '../types';
 
 // Data.
 export class APIInvites {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async getUserInvites({ auth }: InvitesFunctionsInput['getUserInvites']) {
+	public async getUserInvites({ auth, ...rest }: InvitesFunctionsInput['getUserInvites']) {
 		return await this.web.request<GetUserInvitesOutput>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/invites'),
 		});
 	}
 
-	public async getResourceInvites({ auth, query }: InvitesFunctionsInput['getResourceInvites']) {
+	public async getResourceInvites({ auth, query, ...rest }: InvitesFunctionsInput['getResourceInvites']) {
 		return await this.web.request<GetResourceInvitesOutput>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/resources/invites', query),
 		});
 	}
 
-	public async getInviteDetails({ auth, code }: InvitesFunctionsInput['getInviteDetails']) {
+	public async getInviteDetails({ auth, code, ...rest }: InvitesFunctionsInput['getInviteDetails']) {
 		return await this.web.request<InviteDetails>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp(`/invites/${code}`),
 		});
 	}
 
-	public async createInvite({ auth, body }: InvitesFunctionsInput['createInvite']) {
+	public async createInvite({ auth, body, ...rest }: InvitesFunctionsInput['createInvite']) {
 		return await this.web.request<CreateInviteOutput>({
-			method: 'POST', auth, body,
+			method: 'POST', auth, body, ...rest,
 			endpoint: this.web.qp('/invites'),
 		});
 	}
 
-	public async useInvite({ auth, code }: InvitesFunctionsInput['useInvite']) {
+	public async useInvite({ auth, code, ...rest }: InvitesFunctionsInput['useInvite']) {
 		return await this.web.request<UseInviteOutput>({
-			method: 'POST', auth,
+			method: 'POST', auth, ...rest,
 			endpoint: this.web.qp(`/invites/${code}`),
 		});
 	}
 
-	public async renewInvite({ auth, code }: InvitesFunctionsInput['renewInvite']) {
+	public async renewInvite({ auth, code, ...rest }: InvitesFunctionsInput['renewInvite']) {
 		return await this.web.request<RenewInviteOutput>({
-			method: 'PATCH', auth,
+			method: 'PATCH', auth, ...rest,
 			endpoint: this.web.qp(`/invites/${code}`),
 		});
 	}
 
-	public async revokeInvite({ auth, code }: InvitesFunctionsInput['revokeInvite']) {
+	public async revokeInvite({ auth, code, ...rest }: InvitesFunctionsInput['revokeInvite']) {
 		return await this.web.request<string>({
-			method: 'DELETE', auth,
+			method: 'DELETE', auth, ...rest,
 			endpoint: this.web.qp(`/invites/${code}`),
 		});
 	}
 }
 
 // Types.
-export type InvitesFunctionsInput = {
-	'getUserInvites': { auth: string; };
-	'getResourceInvites': { auth: string; query: ViewInvitesQuery; };
-	'getInviteDetails': { auth: string; code: string; };
-	'createInvite': { auth: string; body: CreateInviteInput; };
-	'useInvite': { auth: string; code: string; };
-	'revokeInvite': { auth: string; code: string; };
-	'renewInvite': { auth: string; code: string; };
-}
+export type InvitesFunctionsInput = WithHeaders<{
+	'getUserInvites': { auth: string };
+	'getResourceInvites': { auth: string; query: ViewInvitesQuery };
+	'getInviteDetails': { auth: string; code: string };
+	'createInvite': { auth: string; body: CreateInviteInput };
+	'useInvite': { auth: string; code: string };
+	'revokeInvite': { auth: string; code: string };
+	'renewInvite': { auth: string; code: string };
+}>
 
 // External.
 export type ViewInvitesQuery = {

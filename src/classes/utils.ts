@@ -1,13 +1,14 @@
 import { BoardsManager } from '../core/manager';
+import { WithHeaders } from '../types';
 
 // Data.
 export class APIUtils {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async unfurlUrl({ auth, url }: UtilsFunctionsInput['unfurlUrl']) {
+	public async unfurlUrl({ auth, url, ...rest }: UtilsFunctionsInput['unfurlUrl']) {
 		return await this.web.request<Partial<UnfurlOutput>>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/utils/unfurl', {
 				url,
 			}),
@@ -16,9 +17,9 @@ export class APIUtils {
 }
 
 // Types.
-export type UtilsFunctionsInput = {
-	'unfurlUrl': { auth: string; url: string; };
-}
+export type UtilsFunctionsInput = WithHeaders<{
+	'unfurlUrl': { auth: string; url: string };
+}>
 
 export type UnfurlOutput = {
 	title: string;

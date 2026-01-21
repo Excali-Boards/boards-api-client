@@ -1,87 +1,88 @@
 import { NameInput, SingleOutput } from '../external/types';
 import { BoardsManager } from '../core/manager';
+import { WithHeaders } from '../types';
 
 // Data.
 export class APIGroups {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
-	public async getAllSorted({ auth }: GroupsFunctionsInput['getAllSorted']) {
+	public async getAllSorted({ auth, ...rest }: GroupsFunctionsInput['getAllSorted']) {
 		return await this.web.request<GetAllSortedOutput>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/all'),
 		});
 	}
 
-	public async getGroups({ auth }: GroupsFunctionsInput['getGroups']) {
+	public async getGroups({ auth, ...rest }: GroupsFunctionsInput['getGroups']) {
 		return await this.web.request<GetGroupsOutput>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/groups'),
 		});
 	}
 
-	public async getGroup({ auth, groupId }: GroupsFunctionsInput['getGroup']) {
+	public async getGroup({ auth, groupId, ...rest }: GroupsFunctionsInput['getGroup']) {
 		return await this.web.request<GetGroupOutput>({
-			method: 'GET', auth,
+			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}`),
 		});
 	}
 
-	public async createGroup({ auth, body }: GroupsFunctionsInput['createGroup']) {
+	public async createGroup({ auth, body, ...rest }: GroupsFunctionsInput['createGroup']) {
 		return await this.web.request<string>({
-			method: 'POST', auth, body,
+			method: 'POST', auth, body, ...rest,
 			endpoint: this.web.qp('/groups'),
 		});
 	}
 
-	public async createCategoryInGroup({ auth, groupId, body }: GroupsFunctionsInput['createCategoryInGroup']) {
+	public async createCategoryInGroup({ auth, groupId, body, ...rest }: GroupsFunctionsInput['createCategoryInGroup']) {
 		return await this.web.request<string>({
-			method: 'POST', auth, body,
+			method: 'POST', auth, body, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories`),
 		});
 	}
 
-	public async updateGroup({ auth, groupId, body }: GroupsFunctionsInput['updateGroup']) {
+	public async updateGroup({ auth, groupId, body, ...rest }: GroupsFunctionsInput['updateGroup']) {
 		return await this.web.request<string>({
-			method: 'PATCH', auth, body,
+			method: 'PATCH', auth, body, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}`),
 		});
 	}
 
-	public async reorderGroups({ auth, body }: GroupsFunctionsInput['reorderGroups']) {
+	public async reorderGroups({ auth, body, ...rest }: GroupsFunctionsInput['reorderGroups']) {
 		return await this.web.request<string>({
-			method: 'PUT', auth, body,
+			method: 'PUT', auth, body, ...rest,
 			endpoint: this.web.qp('/groups'),
 		});
 	}
 
-	public async reorderCategoriesInGroup({ auth, groupId, body }: GroupsFunctionsInput['reorderCategoriesInGroup']) {
+	public async reorderCategoriesInGroup({ auth, groupId, body, ...rest }: GroupsFunctionsInput['reorderCategoriesInGroup']) {
 		return await this.web.request<string>({
-			method: 'PUT', auth, body,
+			method: 'PUT', auth, body, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories`),
 		});
 	}
 
-	public async deleteGroup({ auth, groupId }: GroupsFunctionsInput['deleteGroup']) {
+	public async deleteGroup({ auth, groupId, ...rest }: GroupsFunctionsInput['deleteGroup']) {
 		return await this.web.request<string>({
-			method: 'DELETE', auth,
+			method: 'DELETE', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}`),
 		});
 	}
 }
 
 // Types.
-export type GroupsFunctionsInput = {
-	'getAllSorted': { auth: string; };
-	'getGroups': { auth: string; };
-	'getGroup': { auth: string; groupId: string; };
-	'createGroup': { auth: string; body: NameInput; };
-	'createCategoryInGroup': { auth: string; groupId: string; body: NameInput; };
-	'updateGroup': { auth: string; groupId: string; body: NameInput; };
-	'reorderGroups': { auth: string; body: string[]; };
-	'reorderCategoriesInGroup': { auth: string; groupId: string; body: string[]; };
-	'deleteGroup': { auth: string; groupId: string; };
-}
+export type GroupsFunctionsInput = WithHeaders<{
+	'getAllSorted': { auth: string };
+	'getGroups': { auth: string };
+	'getGroup': { auth: string; groupId: string };
+	'createGroup': { auth: string; body: NameInput };
+	'createCategoryInGroup': { auth: string; groupId: string; body: NameInput };
+	'updateGroup': { auth: string; groupId: string; body: NameInput };
+	'reorderGroups': { auth: string; body: string[] };
+	'reorderCategoriesInGroup': { auth: string; groupId: string; body: string[] };
+	'deleteGroup': { auth: string; groupId: string };
+}>
 
 // Outputs.
 export type GetGroupsOutput = (SingleOutput & {

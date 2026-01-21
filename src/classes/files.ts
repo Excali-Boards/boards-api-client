@@ -1,17 +1,18 @@
 import { BoardsManager } from '../core/manager';
+import { WithHeaders } from '../types';
 
 export class APIFiles {
 	constructor (private web: BoardsManager) { }
 
-	public async uploadBase64Files({ auth, boardId, files }: FilesFunctionsInput['uploadBase64Files']) {
+	public async uploadBase64Files({ auth, boardId, files, ...rest }: FilesFunctionsInput['uploadBase64Files']) {
 		return await this.web.request<FileUploadResponse>({
-			method: 'POST', auth,
+			method: 'POST', auth, ...rest,
 			endpoint: `/files/${boardId}/base64`,
 			body: files,
 		});
 	}
 
-	public async uploadRawFiles({ auth, boardId, files }: FilesFunctionsInput['uploadRawFiles']) {
+	public async uploadRawFiles({ auth, boardId, files, ...rest }: FilesFunctionsInput['uploadRawFiles']) {
 		const formData = new FormData();
 
 		for (const file of files) {
@@ -19,15 +20,15 @@ export class APIFiles {
 		}
 
 		return await this.web.request<FileUploadResponse>({
-			method: 'POST', auth,
+			method: 'POST', auth, ...rest,
 			endpoint: `/files/${boardId}/raw`,
 			body: formData,
 		});
 	}
 
-	public async deleteFiles({ auth, boardId, fileIds }: FilesFunctionsInput['deleteFiles']) {
+	public async deleteFiles({ auth, boardId, fileIds, ...rest }: FilesFunctionsInput['deleteFiles']) {
 		return await this.web.request<string>({
-			method: 'DELETE', auth,
+			method: 'DELETE', auth, ...rest,
 			endpoint: `/files/${boardId}/delete`,
 			body: fileIds,
 		});
@@ -35,11 +36,11 @@ export class APIFiles {
 }
 
 // Input types
-export type FilesFunctionsInput = {
-	'uploadBase64Files': { auth: string; boardId: string; files: Base64FileInput; };
-	'uploadRawFiles': { auth: string; boardId: string; files: RawFileInput[]; };
-	'deleteFiles': { auth: string; boardId: string; fileIds: string[]; };
-};
+export type FilesFunctionsInput = WithHeaders<{
+	'uploadBase64Files': { auth: string; boardId: string; files: Base64FileInput };
+	'uploadRawFiles': { auth: string; boardId: string; files: RawFileInput[] };
+	'deleteFiles': { auth: string; boardId: string; fileIds: string[] };
+}>;
 
 export type Base64FileInput = {
 	id: string;
