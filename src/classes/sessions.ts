@@ -85,6 +85,4 @@ export type SessionsOutput = {
 
 export type UnlinkLoginMethodInput = {
 	platform: Platforms;
-	email?: string;
-	newMainPlatform?: Platforms;
 };
