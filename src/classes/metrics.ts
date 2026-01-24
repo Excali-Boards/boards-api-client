@@ -16,7 +16,7 @@ export class APIMetrics {
 	public async getStatus({ auth, ...rest }: MetricsFunctionsInput['getStatus']) {
 		return await this.web.request<SystemStatus>({
 			method: 'GET', auth, ...rest,
-			endpoint: this.web.qp('/metrics/status'),
+			endpoint: this.web.qp('/status'),
 		});
 	}
 }
