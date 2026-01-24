@@ -30,7 +30,8 @@ export type MetricsFunctionsInput = WithHeaders<{
 // External.
 export type SystemStatus = {
 	cpuUsage: number;
-	memoryUsage: string;
+	memoryUsageMb: number;
+	uptimeSeconds: number;
 
 	activeRooms: number;
 	socketConnections: number;
@@ -42,4 +43,7 @@ export type SystemStatus = {
 	totalBoards: number;
 	totalCategories: number;
 	totalGroups: number;
+
+	totalFiles: number;
+	storageSizeMb: number;
 };

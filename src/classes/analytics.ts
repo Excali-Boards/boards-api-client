@@ -6,6 +6,13 @@ export class APIAnalytics {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
+	public async getGlobalAnalytics({ auth, ...rest }: AnalyticsFunctionsInput['getGlobalAnalytics']) {
+		return await this.web.request<UserBoardActivityWithUser[]>({
+			method: 'GET', auth, ...rest,
+			endpoint: this.web.qp('/analytics'),
+		});
+	}
+
 	public async getUserAnalytics({ auth, ...rest }: AnalyticsFunctionsInput['getUserAnalytics']) {
 		return await this.web.request<UserBoardActivityWithBoard[]>({
 			method: 'GET', auth, ...rest,
@@ -37,6 +44,7 @@ export class APIAnalytics {
 
 // Types.
 export type AnalyticsFunctionsInput = WithHeaders<{
+	'getGlobalAnalytics': { auth: string; };
 	'getUserAnalytics': { auth: string; };
 	'getBoardAnalytics': { auth: string; boardId: string; categoryId: string; groupId: string; };
 	'getCategoryAnalytics': { auth: string; categoryId: string; groupId: string; };
