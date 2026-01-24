@@ -34,15 +34,23 @@ export class APISessions {
 			endpoint: this.web.qp('/sessions/all'),
 		});
 	}
+
+	public async rotateLinkedSession({ auth, body, ...rest }: SessionsFunctionsInput['rotateLinkedSession']) {
+		return await this.web.request<string>({
+			method: 'POST', auth, body, ...rest,
+			endpoint: this.web.qp('/sessions/rotate'),
+		});
+	}
 }
 
 // Types.
 export type SessionsFunctionsInput = WithHeaders<{
-	'createSession': { auth: string; body: CreateSessionInput };
-	'getAllSessions': { auth: string };
-	'deleteSession': { auth: string; dbId: string };
-	'deleteAllSessions': { auth: string };
-}>
+	'createSession': { auth: string; body: CreateSessionInput; };
+	'getAllSessions': { auth: string; };
+	'deleteSession': { auth: string; dbId: string; };
+	'deleteAllSessions': { auth: string; };
+	'rotateLinkedSession': { auth: string; body: UnlinkLoginMethodInput; };
+}>;
 
 // External.
 export type CreateSessionInput = {
@@ -73,4 +81,10 @@ export type SessionsOutput = {
 		createdAt: Date;
 		lastUsed: Date;
 	}[];
+};
+
+export type UnlinkLoginMethodInput = {
+	platform: Platforms;
+	email?: string;
+	newMainPlatform?: Platforms;
 };
