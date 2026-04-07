@@ -27,6 +27,13 @@ export class APIBoards {
 		});
 	}
 
+	public async moveBoard({ auth, categoryId, groupId, boardId, body, ...rest }: BoardsFunctionsInput['moveBoard']) {
+		return await this.web.request<MoveBoardOutput>({
+			method: 'POST', auth, body, ...rest,
+			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}/boards/${boardId}/move`),
+		});
+	}
+
 	public async scheduleBoardDeletion({ auth, categoryId, groupId, boardId, ...rest }: BoardsFunctionsInput['scheduleBoardDeletion']) {
 		return await this.web.request<string>({
 			method: 'DELETE', auth, ...rest,
@@ -70,6 +77,7 @@ export type BoardsFunctionsInput = WithHeaders<{
 	'getBoards': { auth: string; categoryId: string; groupId: string; };
 	'getBoard': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'updateBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: NameInput; };
+	'moveBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: MoveBoardInput; };
 	'scheduleBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'cancelBoardDeletion': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'getRoomData': { auth: string; categoryId: string; groupId: string; boardId: string; };
@@ -98,3 +106,15 @@ export type GetBoardOutput = {
 };
 
 export type GetFileOutput = ReadableStream | Blob;
+
+export type MoveBoardInput = {
+	targetCategoryId: string;
+	targetIndex?: number;
+};
+
+export type MoveBoardOutput = {
+	boardId: string;
+	categoryId: string;
+	groupId: string;
+	index: number;
+};
