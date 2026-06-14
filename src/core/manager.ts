@@ -1,5 +1,4 @@
 import { APIPermissions } from '../classes/permissions';
-import { RequestMethod, WebResponse } from '../types';
 import { APIFlashcards } from '../classes/flashcards';
 import { APICategories } from '../classes/categories';
 import { APIAnalytics } from '../classes/analytics';
@@ -13,7 +12,9 @@ import { APIUtils } from '../classes/utils';
 import { APIUsers } from '../classes/users';
 import { APIFiles } from '../classes/files';
 import { APIAdmin } from '../classes/admin';
+import { APIAuth } from '../classes/auth';
 import axios, { AxiosError } from 'axios';
+import { RequestMethod, WebResponse } from '../types';
 import { transformDates } from './utils';
 
 export class BoardsManager {
@@ -31,6 +32,7 @@ export class BoardsManager {
 	readonly users = new APIUsers(this);
 	readonly utils = new APIUtils(this);
 	readonly files = new APIFiles(this);
+	readonly auth = new APIAuth(this);
 
 	constructor (public url: string) { }
 

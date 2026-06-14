@@ -1,6 +1,6 @@
 import { Paginated, WithHeaders } from '../types';
 import { BoardsManager } from '../core/manager';
-import { AllRooms } from '../external/types';
+import { AllRooms, RecentlyActiveRoom } from '../external/types';
 import { GetUsersOutput } from './users';
 
 // Data.
@@ -16,7 +16,7 @@ export class APIAdmin {
 	}
 
 	public async getActiveRooms({ auth, ...rest }: AdminFunctionsInput['getActiveRooms']) {
-		return await this.web.request<AllRooms>({
+		return await this.web.request<{ rooms: AllRooms; recentlyActiveRooms: RecentlyActiveRoom[] }>({
 			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp('/admin/rooms'),
 		});

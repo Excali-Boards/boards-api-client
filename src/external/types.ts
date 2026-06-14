@@ -87,6 +87,19 @@ export type AllRooms = {
 	collaborators: CollabUser[];
 }[];
 
+export type RecentlyActiveRoom = {
+	boardId: string;
+	elements: number;
+	type: BoardType;
+	lastCollaborators: CollabUser[];
+	lastActiveAt: number;
+};
+
+export type GetActiveRoomsResponse = {
+	rooms: AllRooms;
+	recentlyActiveRooms: RecentlyActiveRoom[];
+};
+
 export type CollabUser = {
 	id: string;
 	socketId: string;
