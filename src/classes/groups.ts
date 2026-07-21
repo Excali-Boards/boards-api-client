@@ -76,8 +76,8 @@ export type GroupsFunctionsInput = WithHeaders<{
 	'getAllSorted': { auth: string };
 	'getGroups': { auth: string };
 	'getGroup': { auth: string; groupId: string };
-	'createGroup': { auth: string; body: NameInput };
-	'createCategoryInGroup': { auth: string; groupId: string; body: NameInput };
+	'createGroup': { auth: string; body: NameInput & { copyPermissionsFromGroupId?: string } };
+	'createCategoryInGroup': { auth: string; groupId: string; body: NameInput & { copyPermissionsFromCategoryId?: string } };
 	'updateGroup': { auth: string; groupId: string; body: NameInput };
 	'reorderGroups': { auth: string; body: string[] };
 	'reorderCategoriesInGroup': { auth: string; groupId: string; body: string[] };

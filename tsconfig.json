@@ -1,10 +1,11 @@
 {
 	"compilerOptions": {
 		/* Basic Options */
-		"incremental": true,		
 		"module": "ES2022",
 		"target": "ES2022",
 		"outDir": "./dist",
+		"rootDir": "./src",
+		"declaration": true,
 
 		/* Strict Type-Checking Options */
 		"strict": true,
@@ -26,7 +27,7 @@
 		"moduleResolution": "bundler",
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
-		"baseUrl": ".",
+		"paths": { "*": ["./*"] },
 
 		"skipLibCheck": true,
 		"resolveJsonModule": true,

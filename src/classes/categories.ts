@@ -62,7 +62,7 @@ export class APICategories {
 export type CategoriesFunctionsInput = WithHeaders<{
 	'getCategories': { auth: string; groupId: string };
 	'getCategory': { auth: string; groupId: string; categoryId: string };
-	'createBoardInCategory': { auth: string; groupId: string; categoryId: string; body: BoardInput };
+	'createBoardInCategory': { auth: string; groupId: string; categoryId: string; body: BoardInput & { copyPermissionsFromBoardId?: string } };
 	'updateCategory': { auth: string; groupId: string; categoryId: string; body: NameInput };
 	'moveCategory': { auth: string; groupId: string; categoryId: string; body: MoveCategoryInput };
 	'reorderBoards': { auth: string; groupId: string; categoryId: string; body: string[] };

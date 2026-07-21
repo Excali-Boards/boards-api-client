@@ -1,5 +1,5 @@
 {
-	"version": "1.1.51",
+	"version": "1.1.52",
 	"name": "@excali-boards/boards-api-client",
 	"description": "A simple API client for the Boards API.",
 	"repository": "https://github.com/Excali-Boards/boards-api-client",
@@ -23,19 +23,12 @@
 		"README.md",
 		"LICENSE"
 	],
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"@prisma/client",
-			"@prisma/engines",
-			"prisma"
-		]
-	},
 	"devDependencies": {
 		"@types/node": "20.14.13",
 		"@typescript-eslint/eslint-plugin": "6.18.0",
 		"@typescript-eslint/parser": "6.18.0",
 		"eslint": "8.56.0",
-		"typescript": "5.9.2"
+		"typescript": "7.0.2"
 	},
 	"engines": {
 		"node": ">=20.2.0"

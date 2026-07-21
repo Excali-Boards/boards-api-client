@@ -61,6 +61,7 @@ export type CreateSessionInput = {
 	displayName: string;
 	avatarUrl?: string | null;
 	currentUserId?: string;
+	refreshProfile?: boolean;
 };
 
 export type CreateSessionOutput = {
