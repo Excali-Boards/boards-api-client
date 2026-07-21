@@ -1,5 +1,5 @@
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 export class APIFiles {
 	constructor (private web: BoardsManager) { }

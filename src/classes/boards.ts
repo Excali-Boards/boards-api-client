@@ -1,7 +1,7 @@
-import { AccessLevel, AllRooms, NameInput, SingleOutput } from '../external/types';
-import { BoardType } from '../../prisma/generated/default';
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { AccessLevel, AllRooms, NameInput, SingleOutput } from '../external/types.js';
+import { BoardType } from '../../prisma/generated/default.js';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 export class APIBoards {
 	constructor (private web: BoardsManager) { }

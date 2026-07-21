@@ -1,6 +1,6 @@
-import { NameInput, SingleOutput } from '../external/types';
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { NameInput, SingleOutput } from '../external/types.js';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 // Data.
 export class APIGroups {

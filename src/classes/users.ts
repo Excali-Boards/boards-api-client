@@ -1,7 +1,7 @@
-import { Platforms } from '../../prisma/generated/default';
-import { DBUserPartialType } from '../external/vars';
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { Platforms } from '../../prisma/generated/default.js';
+import { DBUserPartialType } from '../external/vars.js';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 // Data.
 export class APIUsers {

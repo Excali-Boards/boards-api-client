@@ -1,7 +1,7 @@
-import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
-import { PermUser, ResourceType } from '../external/types';
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { BoardRole, CategoryRole, GroupRole } from '../external/vars.js';
+import { PermUser, ResourceType } from '../external/types.js';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 // Data.
 export class APIPermissions {

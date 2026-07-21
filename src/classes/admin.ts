@@ -1,7 +1,7 @@
-import { Paginated, WithHeaders } from '../types';
-import { BoardsManager } from '../core/manager';
-import { AllRooms, RecentlyActiveRoom } from '../external/types';
-import { GetUsersOutput } from './users';
+import { Paginated, WithHeaders } from '../types.js';
+import { BoardsManager } from '../core/manager.js';
+import { AllRooms, RecentlyActiveRoom } from '../external/types.js';
+import { GetUsersOutput } from './users.js';
 
 // Data.
 export class APIAdmin {

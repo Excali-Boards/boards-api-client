@@ -1,8 +1,8 @@
-import { BoardRole, CategoryRole, GroupRole } from '../external/vars';
-import { GrantedRoles, ResourceType } from '../external/types';
+import { BoardRole, CategoryRole, GroupRole } from '../external/vars.js';
+import { GrantedRoles, ResourceType } from '../external/types.js';
 import { Invite } from '../../prisma/generated';
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 // Data.
 export class APIInvites {

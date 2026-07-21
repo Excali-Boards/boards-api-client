@@ -1,7 +1,7 @@
-import { BoardsManager } from '../core/manager';
-import { CreateSessionInput } from './sessions';
-import { DBUserPartialType } from '../external/vars';
-import { WithHeaders } from '../types';
+import { BoardsManager } from '../core/manager.js';
+import { CreateSessionInput } from './sessions.js';
+import { DBUserPartialType } from '../external/vars.js';
+import { WithHeaders } from '../types.js';
 
 export class APIAuth {
 	constructor (private web: BoardsManager) { }

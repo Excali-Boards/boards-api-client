@@ -1,6 +1,6 @@
-import { SingleOutput } from '../external/types';
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { SingleOutput } from '../external/types.js';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 export class APICalendar {
 	constructor (private web: BoardsManager) { }

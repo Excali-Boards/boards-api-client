@@ -1,21 +1,21 @@
-import { APIPermissions } from '../classes/permissions';
-import { APIFlashcards } from '../classes/flashcards';
-import { APICategories } from '../classes/categories';
-import { APIAnalytics } from '../classes/analytics';
-import { APISessions } from '../classes/sessions';
-import { APICalendar } from '../classes/calendar';
-import { APIMetrics } from '../classes/metrics';
-import { APIInvites } from '../classes/invites';
-import { APIGroups } from '../classes/groups';
-import { APIBoards } from '../classes/boards';
-import { APIUtils } from '../classes/utils';
-import { APIUsers } from '../classes/users';
-import { APIFiles } from '../classes/files';
-import { APIAdmin } from '../classes/admin';
-import { APIAuth } from '../classes/auth';
+import { APIPermissions } from '../classes/permissions.js';
+import { APIFlashcards } from '../classes/flashcards.js';
+import { APICategories } from '../classes/categories.js';
+import { APIAnalytics } from '../classes/analytics.js';
+import { APISessions } from '../classes/sessions.js';
+import { APICalendar } from '../classes/calendar.js';
+import { APIMetrics } from '../classes/metrics.js';
+import { APIInvites } from '../classes/invites.js';
+import { APIGroups } from '../classes/groups.js';
+import { APIBoards } from '../classes/boards.js';
+import { APIUtils } from '../classes/utils.js';
+import { APIUsers } from '../classes/users.js';
+import { APIFiles } from '../classes/files.js';
+import { APIAdmin } from '../classes/admin.js';
+import { APIAuth } from '../classes/auth.js';
 import axios, { AxiosError } from 'axios';
-import { RequestMethod, WebResponse } from '../types';
-import { transformDates } from './utils';
+import { RequestMethod, WebResponse } from '../types.js';
+import { transformDates } from './utils.js';
 
 export class BoardsManager {
 	readonly permissions = new APIPermissions(this);

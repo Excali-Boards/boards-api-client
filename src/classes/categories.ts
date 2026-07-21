@@ -1,7 +1,7 @@
-import { BoardInput, NameInput, SingleOutput } from '../external/types';
-import { BoardsManager } from '../core/manager';
-import { GetBoardOutput } from './boards';
-import { WithHeaders } from '../types';
+import { BoardInput, NameInput, SingleOutput } from '../external/types.js';
+import { BoardsManager } from '../core/manager.js';
+import { GetBoardOutput } from './boards.js';
+import { WithHeaders } from '../types.js';
 
 // Data.
 export class APICategories {

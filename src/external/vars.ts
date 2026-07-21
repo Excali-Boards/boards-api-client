@@ -1,5 +1,5 @@
-import { Prisma } from '../../prisma/generated/default';
-import { GlobalRole, UserRole } from './types';
+import { Prisma } from '../../prisma/generated/default.js';
+import { GlobalRole, UserRole } from './types.js';
 
 export const DBUserSelectArgs = {
 	select: {

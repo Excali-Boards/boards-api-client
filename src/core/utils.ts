@@ -1,4 +1,4 @@
-import { Paginated, PaginatedWebResponse, WebResponse } from '../types';
+import { Paginated, PaginatedWebResponse, WebResponse } from '../types.js';
 import { AxiosResponse } from 'axios';
 
 export function isDateStringRegex(value: unknown): value is string {

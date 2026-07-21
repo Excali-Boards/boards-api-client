@@ -1,6 +1,6 @@
-import { Device, Platforms } from '../../prisma/generated/default';
-import { BoardsManager } from '../core/manager';
-import { WithHeaders } from '../types';
+import { Device, Platforms } from '../../prisma/generated/default.js';
+import { BoardsManager } from '../core/manager.js';
+import { WithHeaders } from '../types.js';
 
 // Data.
 export class APISessions {
