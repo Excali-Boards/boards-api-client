@@ -8,10 +8,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-generator tsPrisma {
-    provider = "ts-prisma-generator"
-}
-
 enum Platforms {
     Microsoft
     Discord

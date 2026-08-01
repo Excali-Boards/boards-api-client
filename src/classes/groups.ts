@@ -100,6 +100,7 @@ export type GetGroupOutput = {
 }
 
 export type GetAllSortedOutput = (SingleOutput & {
+	isPersonal: boolean;
 	categories: (SingleOutput & {
 		boards: (SingleOutput & {
 			hasFlashcards: boolean;

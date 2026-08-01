@@ -1,6 +1,6 @@
 import { AccessLevel, AllRooms, NameInput, SingleOutput } from '../external/types.js';
-import { BoardType } from '../../prisma/generated/default.js';
 import { BoardsManager } from '../core/manager.js';
+import { BoardType } from '../external/types.js';
 import { WithHeaders } from '../types.js';
 
 export class APIBoards {
@@ -10,6 +10,27 @@ export class APIBoards {
 		return await this.web.request<GetBoardOutput[]>({
 			method: 'GET', auth, ...rest,
 			endpoint: this.web.qp(`/groups/${groupId}/categories/${categoryId}`),
+		});
+	}
+
+	public async getPersonalBoards({ auth, ...rest }: BoardsFunctionsInput['getPersonalBoards']) {
+		return await this.web.request<PersonalBoardsOutput | PersonalBoardsAdminOutput | null>({
+			method: 'GET', auth, ...rest,
+			endpoint: this.web.qp('/personal'),
+		});
+	}
+
+	public async createPersonalBoard({ auth, body, ...rest }: BoardsFunctionsInput['createPersonalBoard']) {
+		return await this.web.request<CreatePersonalBoardOutput>({
+			method: 'POST', auth, body, ...rest,
+			endpoint: this.web.qp('/personal'),
+		});
+	}
+
+	public async createPersonalCategory({ auth, body, ...rest }: BoardsFunctionsInput['createPersonalCategory']) {
+		return await this.web.request<CreatePersonalCategoryOutput>({
+			method: 'POST', auth, body, ...rest,
+			endpoint: this.web.qp('/personal/categories'),
 		});
 	}
 
@@ -75,6 +96,9 @@ export class APIBoards {
 // Input types.
 export type BoardsFunctionsInput = WithHeaders<{
 	'getBoards': { auth: string; categoryId: string; groupId: string; };
+	'getPersonalBoards': { auth: string; };
+	'createPersonalBoard': { auth: string; body: NameInput & { type: BoardType; categoryId?: string }; };
+	'createPersonalCategory': { auth: string; body: NameInput; };
 	'getBoard': { auth: string; categoryId: string; groupId: string; boardId: string; };
 	'updateBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: NameInput; };
 	'moveBoard': { auth: string; categoryId: string; groupId: string; boardId: string; body: MoveBoardInput; };
@@ -106,6 +130,41 @@ export type GetBoardOutput = {
 };
 
 export type GetFileOutput = ReadableStream | Blob;
+
+export type CreatePersonalBoardOutput = { groupId: string; categoryId: string; boardId: string; };
+export type CreatePersonalCategoryOutput = { categoryId: string; name: string; backingCategoryId: string; };
+
+export type PersonalBoardsOutput = {
+	id: string;
+	owner: PersonalBoardOwnerOutput;
+	boards: PersonalBoardOutput[];
+	categories: PersonalCategoryOutput[];
+};
+
+export type PersonalBoardsAdminOutput = { owners: PersonalBoardsOutput[]; };
+
+export type PersonalBoardOwnerOutput = {
+	userId: string;
+	displayName: string;
+	email: string;
+	avatarUrl: string | null;
+};
+
+export type PersonalCategoryOutput = {
+	id: string;
+	name: string;
+	boards: PersonalBoardOutput[];
+};
+
+export type PersonalBoardOutput = {
+	id: string;
+	categoryId: string;
+	name: string;
+	type: BoardType;
+	index: number;
+	totalSizeBytes: number;
+	scheduledForDeletion: Date | null;
+};
 
 export type MoveBoardInput = {
 	targetCategoryId: string;

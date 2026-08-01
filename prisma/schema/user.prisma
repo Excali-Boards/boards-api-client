@@ -24,6 +24,7 @@ model User {
     createdEvents   Event[]
     createdInvites  Invite[]
     boardActivities UserBoardActivity[]
+    personalWorkspace PersonalWorkspace?
 }
 
 model Session {

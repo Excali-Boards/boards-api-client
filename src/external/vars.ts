@@ -1,4 +1,4 @@
-import { Prisma } from '../../prisma/generated/default.js';
+import type { Prisma } from '../../prisma/generated/default.js';
 import { GlobalRole, UserRole } from './types.js';
 
 export const DBUserSelectArgs = {
@@ -18,7 +18,9 @@ export const DBUserSelectArgs = {
 	},
 } satisfies Prisma.UserDefaultArgs;
 
-export const DBUserPartial = Prisma.validator<Prisma.UserDefaultArgs>()(DBUserSelectArgs);
+// `satisfies` retains the precise selection type without loading Prisma's
+// generated runtime into consumers of the API-client barrel export.
+export const DBUserPartial = DBUserSelectArgs;
 export type DBUserPartialType = Prisma.UserGetPayload<typeof DBUserPartial>;
 
 export enum Platforms {
@@ -27,6 +29,7 @@ export enum Platforms {
 	Discord = 'Discord',
 	Microsoft = 'Microsoft',
 }
+
 
 export enum BoardRole {
 	BoardViewer = 'BoardViewer',

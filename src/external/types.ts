@@ -1,5 +1,6 @@
 import { BoardRole, CategoryRole, GroupRole } from './vars.js';
-import { BoardType } from '../../prisma/generated/default.js';
+import type { BoardType } from '../../prisma/generated/default.js';
+export type { BoardType } from '../../prisma/generated/default.js';
 
 // Permission roles.
 export type UserRole = BoardRole | CategoryRole | GroupRole | GlobalRole;

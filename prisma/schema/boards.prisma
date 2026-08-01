@@ -2,28 +2,32 @@ model Group {
     dbId    String @id @default(uuid())
     groupId String @unique
 
-    name  String
-    index Int
+	name  String
+	index Int
 
     calCode String?
     events  Event[]
 
     categories  Category[]
-    permissions GroupPermission[]
+	permissions GroupPermission[]
+	personalWorkspace PersonalWorkspace?
+
 }
 
 model Category {
     dbId       String @id @default(uuid())
     categoryId String @unique
 
-    name  String
-    index Int
+	name  String
+	index Int
 
     groupId String
     group   Group  @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
 
     boards      Board[]
-    permissions CategoryPermission[]
+	permissions CategoryPermission[]
+	personalCategory PersonalCategory?
+
 }
 
 model Board {
@@ -44,6 +48,7 @@ model Board {
     category   Category @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
 
     flashcardDeck FlashcardDeck?
+	personalBoard PersonalBoard?
 
     files           File[]
     boardPermission BoardPermission[]

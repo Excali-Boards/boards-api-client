@@ -1,0 +1,42 @@
+model PersonalWorkspace {
+    dbId    String @id @default(uuid())
+    userId  String @unique
+    groupId String @unique
+
+    user       User              @relation(fields: [userId], references: [userId], onDelete: Cascade)
+    group      Group             @relation(fields: [groupId], references: [groupId], onDelete: Cascade)
+    categories PersonalCategory[]
+    boards     PersonalBoard[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model PersonalCategory {
+    dbId             String @id @default(uuid())
+    categoryId       String @unique
+    workspaceId      String
+    backingCategoryId String @unique
+    name             String
+    index            Int
+
+    workspace      PersonalWorkspace @relation(fields: [workspaceId], references: [dbId], onDelete: Cascade)
+    backingCategory Category          @relation(fields: [backingCategoryId], references: [categoryId], onDelete: Cascade)
+    boards         PersonalBoard[]
+
+    @@index([workspaceId, index])
+}
+
+model PersonalBoard {
+    dbId        String  @id @default(uuid())
+    boardId     String  @unique
+    workspaceId String
+    categoryId  String?
+
+    board     Board             @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
+    workspace PersonalWorkspace @relation(fields: [workspaceId], references: [dbId], onDelete: Cascade)
+    category  PersonalCategory? @relation(fields: [categoryId], references: [dbId], onDelete: SetNull)
+
+    @@index([workspaceId])
+    @@index([categoryId])
+}
