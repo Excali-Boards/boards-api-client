@@ -40,6 +40,7 @@ export type UsersFunctionsInput = WithHeaders<{
 
 export type GetUsersOutput = DBUserPartialType & {
 	isDev: boolean;
+	personalBoardsEnabled: boolean;
 }
 
 export type UserInput = {
