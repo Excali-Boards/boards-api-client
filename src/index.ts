@@ -15,6 +15,7 @@ export * from './classes/invites.js';
 export * from './classes/metrics.js';
 export * from './classes/groups.js';
 export * from './classes/boards.js';
+export * from './classes/personal.js';
 export * from './classes/utils.js';
 export * from './classes/admin.js';
 export * from './classes/users.js';

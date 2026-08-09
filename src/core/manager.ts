@@ -8,6 +8,7 @@ import { APIMetrics } from '../classes/metrics.js';
 import { APIInvites } from '../classes/invites.js';
 import { APIGroups } from '../classes/groups.js';
 import { APIBoards } from '../classes/boards.js';
+import { APIPersonal } from '../classes/personal.js';
 import { APIUtils } from '../classes/utils.js';
 import { APIUsers } from '../classes/users.js';
 import { APIFiles } from '../classes/files.js';
@@ -28,6 +29,7 @@ export class BoardsManager {
 	readonly metrics = new APIMetrics(this);
 	readonly groups = new APIGroups(this);
 	readonly boards = new APIBoards(this);
+	readonly personal = new APIPersonal(this);
 	readonly admin = new APIAdmin(this);
 	readonly users = new APIUsers(this);
 	readonly utils = new APIUtils(this);

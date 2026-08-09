@@ -31,11 +31,11 @@ model PersonalBoard {
     dbId        String  @id @default(uuid())
     boardId     String  @unique
     workspaceId String
-    categoryId  String?
+    categoryId  String
 
     board     Board             @relation(fields: [boardId], references: [boardId], onDelete: Cascade)
     workspace PersonalWorkspace @relation(fields: [workspaceId], references: [dbId], onDelete: Cascade)
-    category  PersonalCategory? @relation(fields: [categoryId], references: [dbId], onDelete: SetNull)
+    category  PersonalCategory @relation(fields: [categoryId], references: [dbId], onDelete: Cascade)
 
     @@index([workspaceId])
     @@index([categoryId])
