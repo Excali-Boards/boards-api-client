@@ -15,6 +15,20 @@ export class APIAdmin {
 		});
 	}
 
+	public async resolveS3Board({ auth, boardId, body, ...rest }: AdminFunctionsInput['resolveS3Board']) {
+		return await this.web.request<{ boardId: string; name: string; categoryId: string }>({
+			method: 'POST', auth, ...rest, body,
+			endpoint: this.web.qp(`/admin/boards/${boardId}/resolve`),
+		});
+	}
+
+	public async getS3BoardContent({ auth, boardId, ...rest }: AdminFunctionsInput['getS3BoardContent']) {
+		return await this.web.request<{ boardId: string; type: 'Excalidraw' | 'Tldraw'; content: unknown }>({
+			method: 'GET', auth, ...rest,
+			endpoint: this.web.qp(`/admin/boards/${boardId}/content`),
+		});
+	}
+
 	public async getUsers({ auth, page, limit, ...rest }: AdminFunctionsInput['getUsers']) {
 		return await this.web.request<Paginated<GetUsersOutput>>({
 			method: 'GET', auth, ...rest,
@@ -33,6 +47,8 @@ export class APIAdmin {
 // Types.
 export type AdminFunctionsInput = WithHeaders<{
 	'getS3Boards': { auth: string };
+	'resolveS3Board': { auth: string; boardId: string; body: { name: string; categoryId: string; type: 'Excalidraw' | 'Tldraw' } };
+	'getS3BoardContent': { auth: string; boardId: string };
 	'getUsers': { auth: string; page?: number; limit?: number; };
 	'getActiveRooms': { auth: string; };
 }>;
