@@ -8,6 +8,13 @@ export class APIAdmin {
 	constructor (private web: BoardsManager) { }
 
 	// Methods.
+	public async getS3Boards({ auth, ...rest }: AdminFunctionsInput['getS3Boards']) {
+		return await this.web.request<S3BoardOutput[]>({
+			method: 'GET', auth, ...rest,
+			endpoint: '/admin/boards',
+		});
+	}
+
 	public async getUsers({ auth, page, limit, ...rest }: AdminFunctionsInput['getUsers']) {
 		return await this.web.request<Paginated<GetUsersOutput>>({
 			method: 'GET', auth, ...rest,
@@ -25,6 +32,22 @@ export class APIAdmin {
 
 // Types.
 export type AdminFunctionsInput = WithHeaders<{
+	'getS3Boards': { auth: string };
 	'getUsers': { auth: string; page?: number; limit?: number; };
 	'getActiveRooms': { auth: string; };
 }>;
+
+export type S3BoardOutput = {
+	boardId: string;
+	board: {
+		id: string;
+		name: string;
+		type: 'Excalidraw' | 'Tldraw';
+		groupId: string;
+		groupName: string;
+		categoryId: string;
+		categoryName: string;
+		isPersonal: boolean;
+		userId: string | null;
+	} | null;
+};
