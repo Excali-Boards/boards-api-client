@@ -1,5 +1,5 @@
 {
-	"version": "1.1.71",
+	"version": "1.1.72",
 	"name": "@excali-boards/boards-api-client",
 	"description": "A simple API client for the Boards API.",
 	"repository": "https://github.com/Excali-Boards/boards-api-client",
@@ -7,7 +7,7 @@
 	"scripts": {
 		"ts": "pnpm install typescript --save-dev -g",
 		"init": "pnpm install && pnpm run build",
-		"build": "tsc --build",
+		"build": "tsc",
 		"postinstall": "prisma generate",
 		"watch": "tsc --watch",
 		"lint": "eslint . --ext .ts",
