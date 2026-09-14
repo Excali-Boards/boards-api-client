@@ -101,5 +101,6 @@ export type QrLoginRedeemOutput = {
 	status: 'approved';
 	token: string;
 	expiresAt: Date;
+	redirectDelay: boolean;
 };
 export type UnlinkLoginMethodInput = { platform: Platforms; };

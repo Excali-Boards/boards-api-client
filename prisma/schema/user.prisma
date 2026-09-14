@@ -8,6 +8,8 @@ model User {
 
     mainGroupId String?
 
+    qrLoginRedirectDelay Boolean @default(true)
+
     mainLoginType Platforms
     loginMethods  LoginMethod[]
 

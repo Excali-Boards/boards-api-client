@@ -8,6 +8,7 @@ export const DBUserSelectArgs = {
 		invitedBy: true,
 		avatarUrl: true,
 		mainGroupId: true,
+		qrLoginRedirectDelay: true,
 		displayName: true,
 		mainLoginType: true,
 		registrationMethod: true,

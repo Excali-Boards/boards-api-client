@@ -47,4 +47,5 @@ export type UserInput = {
 	mainGroupId?: string | null;
 	displayName?: string;
 	platform?: Platforms;
+	qrLoginRedirectDelay?: boolean;
 }
