@@ -34,6 +34,7 @@ model Session {
 
     device            Device?
     locationEncrypted String?
+    isQrLogin         Boolean  @default(false)
 
     userId String
     user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
@@ -44,6 +45,24 @@ model Session {
 
     @@index([userId])
     @@index([expiresAt])
+}
+
+model QrLoginChallenge {
+    dbId String @id @default(cuid())
+
+    secretHash String @unique
+    status     String @default("pending")
+
+    approvedByUserId String?
+    sessionExpiresAt DateTime?
+
+    createdAt  DateTime  @default(now())
+    expiresAt  DateTime
+    approvedAt DateTime?
+    consumedAt DateTime?
+
+    @@index([expiresAt])
+    @@index([status])
 }
 
 model LoginMethod {
