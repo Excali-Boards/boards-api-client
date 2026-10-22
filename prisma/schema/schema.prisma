@@ -13,6 +13,7 @@ enum Platforms {
     Discord
     Google
     GitHub
+    OIDC
 }
 
 enum Device {

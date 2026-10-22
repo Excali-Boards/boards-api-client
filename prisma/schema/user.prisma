@@ -55,8 +55,12 @@ model LoginMethod {
     platform      Platforms
     platformEmail String
 
+    providerIssuer String?
+    providerSubject String?
+
     userId String
     user   User   @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
     @@unique([platform, platformEmail])
+    @@unique([platform, providerIssuer, providerSubject])
 }

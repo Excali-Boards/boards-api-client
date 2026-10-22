@@ -15,7 +15,7 @@ export const DBUserSelectArgs = {
 		groupPermissions: { select: { groupId: true, role: true } },
 		categoryPermissions: { select: { categoryId: true, role: true } },
 		boardPermissions: { select: { boardId: true, role: true } },
-		loginMethods: { select: { platform: true, platformEmail: true } },
+		loginMethods: { select: { platform: true, platformEmail: true, providerIssuer: true, providerSubject: true } },
 	},
 } satisfies Prisma.UserDefaultArgs;
 
@@ -29,6 +29,7 @@ export enum Platforms {
 	GitHub = 'GitHub',
 	Discord = 'Discord',
 	Microsoft = 'Microsoft',
+	OIDC = 'OIDC',
 }
 
 

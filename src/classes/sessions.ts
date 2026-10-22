@@ -65,6 +65,8 @@ export type CreateSessionInput = {
 	platform: Platforms;
 	displayName: string;
 	avatarUrl?: string | null;
+	providerIssuer?: string;
+	providerSubject?: string;
 	currentUserId?: string;
 	refreshProfile?: boolean;
 };
