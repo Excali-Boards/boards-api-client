@@ -26,7 +26,7 @@ model User {
     createdEvents   Event[]
     createdInvites  Invite[]
     boardActivities UserBoardActivity[]
-    personalWorkspace PersonalWorkspace?
+    personalGroup   Group?              @relation("PersonalGroupOwner")
 }
 
 model Session {

@@ -5,12 +5,15 @@ model Group {
 	name  String
 	index Int
 
+    kind    GroupKind @default(Shared)
+    ownerId String?   @unique
+
     calCode String?
     events  Event[]
 
+    owner       User?             @relation("PersonalGroupOwner", fields: [ownerId], references: [userId], onDelete: Cascade)
     categories  Category[]
 	permissions GroupPermission[]
-	personalWorkspace PersonalWorkspace?
 
 }
 
@@ -26,7 +29,6 @@ model Category {
 
     boards      Board[]
 	permissions CategoryPermission[]
-	personalCategory PersonalCategory?
 
 }
 
@@ -48,7 +50,6 @@ model Board {
     category   Category @relation(fields: [categoryId], references: [categoryId], onDelete: Cascade)
 
     flashcardDeck FlashcardDeck?
-	personalBoard PersonalBoard?
 
     files           File[]
     boardPermission BoardPermission[]

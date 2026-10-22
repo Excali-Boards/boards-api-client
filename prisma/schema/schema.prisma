@@ -48,6 +48,11 @@ enum GroupRole {
     GroupAdmin // GroupManager + user/invite management
 }
 
+enum GroupKind {
+    Shared
+    Personal
+}
+
 enum RegistrationMethod {
     direct
     invite

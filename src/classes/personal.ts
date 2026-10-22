@@ -85,7 +85,6 @@ export type CreatePersonalBoardOutput = {
 export type CreatePersonalCategoryOutput = {
 	categoryId: string;
 	name: string;
-	backingCategoryId: string;
 };
 
 export type PersonalBoardsOutput = {
