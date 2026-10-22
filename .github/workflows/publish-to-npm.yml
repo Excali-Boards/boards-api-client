@@ -28,7 +28,9 @@ jobs:
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true
+
+      - name: Set up npm for trusted publishing
+        run: npm install --global npm@11.5.1
 
       - name: Install dependencies
         run: |
