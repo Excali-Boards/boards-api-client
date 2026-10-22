@@ -1,6 +1,5 @@
-import { AccessLevel, AllRooms, NameInput, SingleOutput } from '../external/types.js';
+import { AccessLevel, AllRooms, BoardType, NameInput, SingleOutput } from '../external/types.js';
 import { BoardsManager } from '../core/manager.js';
-import { BoardType } from '../external/types.js';
 import { WithHeaders } from '../types.js';
 import type { PersonalFunctionsInput } from './personal.js';
 
