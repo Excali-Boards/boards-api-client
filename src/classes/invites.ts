@@ -87,12 +87,14 @@ export type CreateInviteInput = {
 	boardRole?: BoardRole;
 	expiresIn?: number; // days, 1-30, default 7
 	maxUses?: number; // min 1
+	allowSignUp?: boolean;
 };
 
 export type CreateInviteOutput = {
 	code: string;
 	expiresAt: string;
 	maxUses: number;
+	allowSignUp: boolean;
 };
 
 export type RenewInviteOutput = CreateInviteOutput & {
@@ -123,7 +125,7 @@ export type InviteDetails = RenewInviteOutput & {
 	};
 };
 
-export type InviteData = Pick<Invite, 'code' | 'expiresAt' | 'maxUses' | 'currentUses' | 'boardRole' | 'categoryRole' | 'groupRole'> & {
+export type InviteData = Pick<Invite, 'code' | 'expiresAt' | 'maxUses' | 'currentUses' | 'allowSignUp' | 'boardRole' | 'categoryRole' | 'groupRole'> & {
 	groups: { groupId: string; name: string; }[];
 	categories: { categoryId: string; name: string; groupId: string; }[];
 	boards: { boardId: string; name: string; categoryId: string; }[];

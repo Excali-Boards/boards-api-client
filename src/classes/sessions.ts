@@ -69,6 +69,7 @@ export type CreateSessionInput = {
 	providerSubject?: string;
 	currentUserId?: string;
 	refreshProfile?: boolean;
+	inviteCode?: string;
 };
 
 export type CreateSessionOutput = { token: string; expiresAt: Date; };

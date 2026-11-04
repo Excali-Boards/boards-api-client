@@ -50,6 +50,7 @@ model Invite {
     dbId String @id @default(uuid())
 
     code String @unique
+    allowSignUp Boolean @default(false)
 
     // Allow invites to multiple groups, categories, or boards.
     // If multiple are specified, the invite grants access to all of them.
