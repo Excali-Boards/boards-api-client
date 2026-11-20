@@ -46,9 +46,7 @@ export type SearchResult = {
 
 export type SearchMatch = {
 	elementId: string;
-	kind: string;
 	text: string;
-	truncated: boolean;
 	x?: number;
 	y?: number;
 	pageId?: string;
