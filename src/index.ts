@@ -21,3 +21,4 @@ export * from './classes/admin.js';
 export * from './classes/users.js';
 export * from './classes/files.js';
 export * from './classes/auth.js';
+export * from './classes/search.js';

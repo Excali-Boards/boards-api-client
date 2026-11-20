@@ -14,6 +14,7 @@ import { APIUsers } from '../classes/users.js';
 import { APIFiles } from '../classes/files.js';
 import { APIAdmin } from '../classes/admin.js';
 import { APIAuth } from '../classes/auth.js';
+import { APISearch } from '../classes/search.js';
 import axios, { AxiosError } from 'axios';
 import { RequestMethod, WebResponse } from '../types.js';
 import { transformDates } from './utils.js';
@@ -35,6 +36,7 @@ export class BoardsManager {
 	readonly utils = new APIUtils(this);
 	readonly files = new APIFiles(this);
 	readonly auth = new APIAuth(this);
+	readonly search = new APISearch(this);
 
 	constructor (public url: string) { }
 
